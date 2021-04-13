@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-04-13T14:51:36.790Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="-MTfjiWVHoNYfZXfsi1G" version="14.5.10" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-13T14:55:19.034Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="z5itEEH4BsdK9vcCv433" version="14.5.10" type="github" pages="4">
   <diagram id="W411rWCE6vEQIN0AdYnL" name="Page-1">
     <mxGraphModel dx="1248" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -189,7 +189,7 @@
           <mxGeometry x="630" y="804" width="140" height="20" as="geometry" />
         </mxCell>
         <mxCell id="XX6hxe7ohqKSHsR54nhQ-12" value="&lt;span style=&quot;text-align: left&quot;&gt;BUYER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Your order is currently on its way.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Received]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Seller]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;SELLER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;You have a new order.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Done]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Buyer]&lt;/span&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
-          <mxGeometry x="351.88" y="550" width="220" height="220" as="geometry" />
+          <mxGeometry x="351.88" y="520" width="220" height="220" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
