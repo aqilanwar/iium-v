@@ -2,6 +2,9 @@
   include 'inc/connection.php';
   session_start();
   $user = $_SESSION['User'];
+  if(empty($_SESSION['User'])){
+    header("Location: login.php");
+  }
 ?>
 
 
@@ -46,22 +49,39 @@
     <div class="container" style="margin-top:150px; min-height:90vh;">
       <h1>Shopping Cart</h1>
         <div class="container">
-        <table class="table">
-            <thead class="thead-light">
-                <tr>
-                    <th scope="col"></th>
-                    <th scope="col" style="text-align:center;">Item</th>
-                    <th scope="col"></th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Subtotal</th>
-                    <th scope="col">Seller</th>
-                </tr>
-            </thead>
+
             <tbody>
             <?php 
                 $query = "SELECT * FROM shopping_cart WHERE username = '$user' ";
-                $result = mysqli_query($sql_connect, $query);                    
+                $result = mysqli_query($sql_connect, $query); 
+                
+                if(mysqli_num_rows($result)== 0){
+                  echo '
+                          <div class="card-body cart">
+                            <div class="col-sm-12 empty-cart-cls text-center"> <img src="assets/img/empty.png" width="100" height="100" class="img-fluid mb-4 mr-3">
+                              <h3><strong>Your Cart is Empty :(</strong></h3>
+                              <h4>Continue shopping with us !</h4> <a href="services.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Services </a>
+                              <a href="product.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Product </a>
+                            </div>
+                           </div>
+                  ' ;
+                }else{
+                  echo '
+                  <table class="table">
+                  <thead class="thead-light">
+                      <tr>
+                          <th scope="col"></th>
+                          <th scope="col" style="text-align:center;">Item</th>
+                          <th scope="col"></th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Subtotal</th>
+                          <th scope="col">Seller</th>
+                      </tr>
+                  </thead>
+                  ';
+                }
+
                 while ($cart = mysqli_fetch_assoc($result)) {
 
                     $query2 = "SELECT * FROM var_product WHERE var_product_id = '".$cart['var_product_id']."' " ;
@@ -78,15 +98,19 @@
             ?>
                 <tr>
                     <th scope="row" style="text-align:center; vertical-align:middle;">
-                        <span class="material-icons">
-                            highlight_off
-                        </span>
+                    <form action="inc/deletecart.php" method="POST">
+                      <button type="submit" name="submit" id="submit"  value ="<?php echo $cart['var_product_id']; ?>" class="btn btn-danger">
+                          <span class="material-icons align-middle">
+                              highlight_off
+                          </span>
+                      </button>
+                    </form>
                     </th>
                     <td width=200px; style="text-align:center;">
                         <img src="images/<?php echo $cart3['pic_name'] ?>" height=100px; alt="">
                     </td>
                     <td style="vertical-align:middle;">
-                        <p><?php echo $cart4['product_title'] ?></p>
+                        <p><a href="view.php?view_prod=<?php echo $cart['product_id'] ?>"><?php echo $cart4['product_title'] ?></a></p>
                         <p><?php echo 'Variation : ' ,  $cart2['var_product_title']; ?></p>
                     </td>
                     <td style="vertical-align:middle;">
@@ -106,8 +130,10 @@
                         <a href=""><?php echo $cart4['user_id'] ?> </a>
                     </td>
                 </tr> 
+                <p class="form-message"></p>          
 
                 <?php } ?>
+
             </tbody>
             </table>
         </div>
@@ -134,6 +160,8 @@
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
