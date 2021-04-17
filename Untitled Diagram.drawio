@@ -1,11 +1,11 @@
-<mxfile host="app.diagrams.net" modified="2021-04-13T14:55:19.034Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36" etag="z5itEEH4BsdK9vcCv433" version="14.5.10" type="github" pages="4">
+<mxfile host="app.diagrams.net" modified="2021-04-17T16:16:33.545Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.128 Safari/537.36" etag="eGisei8cWgBv1Pxvr4JR" version="14.6.1" type="github" pages="4">
   <diagram id="W411rWCE6vEQIN0AdYnL" name="Page-1">
     <mxGraphModel dx="1248" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="eEgCmpG9dYA9iIhkquhl-1" value="user" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=26;fillColor=none;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry x="80" y="90" width="140" height="270" as="geometry" />
+          <mxGeometry x="90" y="60" width="140" height="270" as="geometry" />
         </mxCell>
         <mxCell id="eEgCmpG9dYA9iIhkquhl-19" value="user_id" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="eEgCmpG9dYA9iIhkquhl-1" vertex="1">
           <mxGeometry y="26" width="140" height="26" as="geometry" />
@@ -157,7 +157,7 @@
         <mxCell id="dCzQO7GKJSaXUf3rhX0l-26" value="purchase_id" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="dCzQO7GKJSaXUf3rhX0l-22" vertex="1">
           <mxGeometry y="78" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="1" source="XX6hxe7ohqKSHsR54nhQ-1" target="XX6hxe7ohqKSHsR54nhQ-2">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="XX6hxe7ohqKSHsR54nhQ-1" target="XX6hxe7ohqKSHsR54nhQ-2" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="60" y="630" />
@@ -165,7 +165,7 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XX6hxe7ohqKSHsR54nhQ-2" target="XX6hxe7ohqKSHsR54nhQ-5">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="XX6hxe7ohqKSHsR54nhQ-2" target="XX6hxe7ohqKSHsR54nhQ-5" edge="1">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
               <mxPoint x="290" y="403" />
@@ -173,22 +173,22 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-1" value="LEPAS ADD TO CART" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-1" value="LEPAS ADD TO CART" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="80" y="620" width="165" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-2" value="LEPAS PAYMENT" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-2" value="LEPAS PAYMENT" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="100" y="393" width="140" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="XX6hxe7ohqKSHsR54nhQ-5" target="XX6hxe7ohqKSHsR54nhQ-8">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="XX6hxe7ohqKSHsR54nhQ-5" target="XX6hxe7ohqKSHsR54nhQ-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-5" value="LEPAS PAYMENT&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-5" value="LEPAS PAYMENT&amp;nbsp;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="393.75" y="770" width="136.25" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-8" value="LEPAS SUCCESS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-8" value="LEPAS SUCCESS" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" parent="1" vertex="1">
           <mxGeometry x="630" y="804" width="140" height="20" as="geometry" />
         </mxCell>
-        <mxCell id="XX6hxe7ohqKSHsR54nhQ-12" value="&lt;span style=&quot;text-align: left&quot;&gt;BUYER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Your order is currently on its way.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Received]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Seller]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;SELLER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;You have a new order.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Done]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Buyer]&lt;/span&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="XX6hxe7ohqKSHsR54nhQ-12" value="&lt;span style=&quot;text-align: left&quot;&gt;BUYER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Your order is currently on its way.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Received]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Seller]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;SELLER&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;You have a new order.&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Receipt :&amp;nbsp;&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;Item :&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Done]&lt;/span&gt;&lt;br style=&quot;text-align: left&quot;&gt;&lt;span style=&quot;text-align: left&quot;&gt;[Contact Buyer]&lt;/span&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
           <mxGeometry x="351.88" y="520" width="220" height="220" as="geometry" />
         </mxCell>
       </root>
