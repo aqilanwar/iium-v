@@ -54,7 +54,7 @@
             <?php 
                 $query = "SELECT * FROM shopping_cart WHERE username = '$user' ";
                 $result = mysqli_query($sql_connect, $query); 
-                
+                $total = 0 ;
                 if(mysqli_num_rows($result)== 0){
                   echo '
                           <div class="card-body cart">
@@ -122,20 +122,32 @@
                     <td style="vertical-align:middle;">
                         
                         <?php $subtotal = $cart2['var_product_price'] * $cart['quantity'] ; 
-                            $subtotal = "RM " . number_format($subtotal,2) ;
-                            echo $subtotal;
+                            $subtotal = number_format($subtotal,2) ;
+                            echo 'RM ' , $subtotal;
                         ?>
                     </td>
                     <td style="vertical-align:middle;">
                         <a href=""><?php echo $cart4['user_id'] ?> </a>
                     </td>
                 </tr> 
-                <p class="form-message"></p>          
 
-                <?php } ?>
+                <?php
+                    $total = $total + $subtotal ;
+                    $total = number_format($total,2);
 
+                  }
+                ?>
             </tbody>
             </table>
+            <div class="container" style="margin-bottom:200px;">
+              <div class="card" style="width: 30rem; float:right;">
+                <div class="card-body" style="flex-direction:column">
+                  <h5 class="card-title">Grand Total : <?php echo'RM ' , $total ?></h5>
+                  <hr>
+                  <a href="#" class="btn btn-primary">Checkout</a>
+                </div>
+              </div>
+            </div>
         </div>
     </div>
 
