@@ -120,8 +120,8 @@ if (!isset($_SESSION['User'])) {
                         ?>
                         <div class="card-body">
                             <div class="item d-inline-flex">
-                                <div class="image">
-                                    <img style="max-height:190px;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
+                                <div class="image"  style="max-height: 192px; ">
+                                    <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
                                   </div>
                                   <div class="title">
                                       <h4><?php echo $row2['product_title'];?></h4>

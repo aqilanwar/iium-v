@@ -47,7 +47,8 @@
   <?php include 'inc/header.php' ?>
   <!-- ======= Hero Section ======= -->
     <div class="container" style="margin-top:150px; min-height:90vh;">
-      <h1>Shopping Cart</h1>
+      <h1>Receipt</h1>
+       <h5>Invoice ID : 200291943</h5>
         <div class="container">
 
             <tbody>
@@ -81,7 +82,7 @@
                   </thead>
                   ';
                 }
-
+                $i = 1;
                 while ($cart = mysqli_fetch_assoc($result)) {
 
                     $query2 = "SELECT * FROM var_product WHERE var_product_id = '".$cart['var_product_id']."' " ;
@@ -98,13 +99,7 @@
             ?>
                 <tr>
                     <th scope="row" style="text-align:center; vertical-align:middle;">
-                    <form action="inc/deletecart.php" method="POST">
-                      <button type="submit" name="submit" id="submit"  value ="<?php echo $cart['var_product_id']; ?>" class="btn btn-danger">
-                          <span class="material-icons align-middle">
-                              highlight_off
-                          </span>
-                      </button>
-                    </form>
+                        <?php echo $i++ ?>
                     </th>
                     <td width=200px; style="text-align:center;">
                         <img src="images/<?php echo $cart3['pic_name'] ?>" height=100px; alt="">
@@ -142,14 +137,14 @@
             <?php 
                if(mysqli_num_rows($result) > 0){
             ?>
-            <div class="container" style="margin-bottom:200px;">
-              <div class="card" style="width: 30rem; float:right;">
-                <div class="card-body" style="flex-direction:column">
-                  <h5 class="card-title">Grand Total : <?php echo'RM ' , $total ?></h5>
-                  <hr>
-                  <a href="payment/payment.php" class="btn btn-primary">Checkout</a>
+        <div class="card text-white bg-success mb-3" style="width: 30rem; float:right;">
+            <div class="card-header">
+            <h5 class="card-title" ><strong> Status : </strong> Paid</h5>
+            </div>
+               <div class="card-body" style="flex-direction:column">
+                  <h5 class="card-title" ><strong>Date : </strong> 12/06/2021 : 9.59 PM</h5>
+                  <h5 class="card-title" ><strong>Grand Total : </strong> <?php echo'RM ' , $total ?></h5>
                 </div>
-              </div>
             </div>
             <?php } ?>
         </div>
