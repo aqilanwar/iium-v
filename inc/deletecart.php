@@ -14,7 +14,7 @@
 
         //Update value after delete from cart
 
-        $update = "UPDATE var_product SET var_product_quan = (var_product_quan + '".$quantity['quantity ']."') WHERE var_product_id = '$prodid' " ;
+        $update = "UPDATE var_product SET var_product_quan = (var_product_quan + '".$quantity['quantity']."') WHERE var_product_id = '$prodid' " ;
         $sql2 = mysqli_query($sql_connect, $update);
 
 

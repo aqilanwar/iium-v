@@ -139,15 +139,19 @@
                 ?>
             </tbody>
             </table>
+            <?php 
+               if(mysqli_num_rows($result) > 0){
+            ?>
             <div class="container" style="margin-bottom:200px;">
               <div class="card" style="width: 30rem; float:right;">
                 <div class="card-body" style="flex-direction:column">
-                  <h5 class="card-title">Grand Total : <?php echo'RM ' , $total ?></h5>
+                  <h5 class="card-title" style="text-align:center">Grand Total : <?php echo'RM ' , $total ?></h5>
                   <hr>
                   <a href="#" class="btn btn-primary">Checkout</a>
                 </div>
               </div>
             </div>
+            <?php } ?>
         </div>
     </div>
 
