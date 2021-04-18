@@ -9,7 +9,7 @@ $row = mysqli_fetch_assoc($result);
 
 if (!isset($_SESSION['User'])) {
   header("Location: login.php");
-} 
+}
 
 ?>
 
@@ -26,7 +26,7 @@ if (!isset($_SESSION['User'])) {
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link href="assets/img/ipm-logo-01.png" rel="icon">
   <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -41,7 +41,9 @@ if (!isset($_SESSION['User'])) {
   <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
 
@@ -51,116 +53,178 @@ if (!isset($_SESSION['User'])) {
   <!-- ======= Header ======= -->
   <?php include 'inc/header.php'; ?>
   <!-- ======= Hero Section ======= -->
-    <div class="container" style="margin-top:150px;">
-        <div class="row">
-            <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 35%;">
-                <div class="profile" >
-                    <h1>Profile</h1>
-                    <div class="card" style="height: 100%;">
-                        <div class="card-body" style="display: flex; flex-direction: column;">
-                            <img src="assets/img/profile.png" style="border-radius:50%" width="50px" alt="">
-                            <div class="container">
-                            <p class="verified align-middle" style="text-align:center; font-size:20px;">
-                              <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
-                                verified_user
-                              </span>
-                            Verified User
-                            </p>
-                            <p class="title-profile">Full Name :</p><p><?php echo $row['full_name'] ?></p>
-                            <p class="title-profile">Username :</p><p><?php echo $row['username'] ?></p>
-                            <p class="title-profile">Phone Number :</p><p><?php echo $row['phone_num'] ?></p>
-                            <p class="title-profile">Matric ID :</p><p><?php echo $row['matricid'] ?></p>
-                            <p class="title-profile">Address :</p><p><?php echo $row['address'] ?></p>
-                            <p class="title-profile">Gender :</p><p><?php echo $row['gender'] ?></p>
-                            <p class="title-profile">Email :</p><p><?php echo $row['email'] ?></p>
-                            <p class="title-profile">User Type :</p><p><?php echo $row['user_type'] ?></p>
+  <div class="container" style="margin-top:150px;">
+    <div class="row">
+      <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 35%;">
+        <div class="profile">
+          <h1>Profile</h1>
+          <div class="card" style="height: 100%;">
+            <div class="card-body" style="display: flex; flex-direction: column;">
+              <img src="assets/img/profile.png" style="border-radius:50%" width="50px" alt="">
+              <div class="container">
+                <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                  <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
+                    verified_user
+                  </span>
+                  Verified User
+                </p>
+                <p class="title-profile">Full Name :</p>
+                <p><?php echo $row['full_name'] ?></p>
+                <p class="title-profile">Username :</p>
+                <p><?php echo $row['username'] ?></p>
+                <p class="title-profile">Phone Number :</p>
+                <p><?php echo $row['phone_num'] ?></p>
+                <p class="title-profile">Matric ID :</p>
+                <p><?php echo $row['matricid'] ?></p>
+                <p class="title-profile">Address :</p>
+                <p><?php echo $row['address'] ?></p>
+                <p class="title-profile">Gender :</p>
+                <p><?php echo $row['gender'] ?></p>
+                <p class="title-profile">Email :</p>
+                <p><?php echo $row['email'] ?></p>
+                <p class="title-profile">User Type :</p>
+                <p><?php echo $row['user_type'] ?></p>
 
-                            <div class="center-btn">
-                                <button class="profile-update">Update Profile</button>
-                            </div>
-                            </div>
-
-                        </div>
-                    </div>
+                <div class="center-btn">
+                  <button class="profile-update">Update Profile</button>
                 </div>
-            </div>
-            <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 65%;">
-                <div class="dashboard">
-                    <div class="title-dashboard d-flex">
-                        <h1>Dashboard</h1>
-                        <button class="new-ads-btn"><a style="color:white;" href="postads.php">Post a new ads !</a></button>
-                    </div>
-
-
-                    <div class="card text-center">
-                        <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs">
-                            <li class="nav-item">
-                                <a class="nav-link active" href="#">Active Ads</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Pending Purchase</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Purchase History</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Notification</a>
-                            </li>
-                        </ul>
-                        </div>
-                        <?php
-                            $query2 = "SELECT * FROM product WHERE user_id ='$usernameSESSION' ORDER BY product_date DESC";
-                            $result2 = mysqli_query($sql_connect, $query2);                    
-                            while ($row2 = mysqli_fetch_assoc($result2)) {
-                                $id = $row2['product_id'];
-                                $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
-                                $resultpic = mysqli_query($sql_connect, $querypic);  
-                                $pic = mysqli_fetch_assoc($resultpic);
-                        ?>
-                        <div class="card-body">
-                            <div class="item d-inline-flex">
-                                <div class="image"  style="max-height: 192px; ">
-                                    <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
-                                  </div>
-                                  <div class="title">
-                                      <h4><?php echo $row2['product_title'];?></h4>
-                                        <p class="name">
-                                        <span class="material-icons align-middle">
-                                            segment
-                                            </span>
-                                        <?php echo $row2['type'];?>/<?php echo $row2['product_category'];?>
-                                        </p>
-                                        <p class="verified">
-                                        <span class="material-icons align-middle">
-                                        date_range
-                                        </span>
-                                        <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
-                                        </p>
-                                      <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                      <?php echo $row2['product_des'];?></p>
-
-
-                                      <div class="btn-prod">
-                                        <button class="edit-btn">Edit</button>
-                                        <button class="delete-btn">Delete</button>
-                                      </div>
-                                  </div>
-                            </div>
-                        </div>
-                        <?php } ?>
-
-                    </div>
-                </div>
+              </div>
 
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 65%;">
+        <div class="dashboard">
+          <div class="title-dashboard d-flex">
+            <h1>Dashboard</h1>
+            <button class="new-ads-btn"><a style="color:white;" href="postads.php">Post a new ads !</a></button>
+          </div>
+
+
+          <div class="card text-center">
+            <div class="card-header">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Active Ads</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pending Purchase</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Success Purchase</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">Notification</a>
+                </li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                  <?php
+                  $query2 = "SELECT * FROM product WHERE user_id ='$usernameSESSION' ORDER BY product_date DESC";
+                  $result2 = mysqli_query($sql_connect, $query2);
+                  while ($row2 = mysqli_fetch_assoc($result2)) {
+                    $id = $row2['product_id'];
+                    $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
+                    $resultpic = mysqli_query($sql_connect, $querypic);
+                    $pic = mysqli_fetch_assoc($resultpic);
+                  ?>
+                    <div class="card-body">
+                      <div class="item d-inline-flex">
+                        <div class="image" style="max-height: 192px; ">
+                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
+                        </div>
+                        <div class="title">
+                          <h4><?php echo $row2['product_title']; ?></h4>
+                          <p class="name">
+                            <span class="material-icons align-middle">
+                              segment
+                            </span>
+                            <?php echo $row2['type']; ?>/<?php echo $row2['product_category']; ?>
+                          </p>
+                          <p class="verified">
+                            <span class="material-icons align-middle">
+                              date_range
+                            </span>
+                            <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
+                          </p>
+                          <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <?php echo $row2['product_des']; ?></p>
+
+
+                          <div class="btn-prod">
+                            <button type="button" class="btn btn-primary">Edit</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  <?php } ?>
+                </div>
+                <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                  <?php
+                  $query2 = "SELECT * FROM product WHERE user_id ='faris_pol' ORDER BY product_date DESC";
+                  $result2 = mysqli_query($sql_connect, $query2);
+                  while ($row2 = mysqli_fetch_assoc($result2)) {
+                    $id = $row2['product_id'];
+                    $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
+                    $resultpic = mysqli_query($sql_connect, $querypic);
+                    $pic = mysqli_fetch_assoc($resultpic);
+                  ?>
+                    <div class="card-body">
+                      <div class="item d-inline-flex">
+                        <div class="image" style="max-height: 192px; ">
+                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
+                        </div>
+                        <div class="title">
+                          <h5><?php echo $row2['product_title']; ?></h5>
+                          <p class="name">
+                            <span class="material-icons align-middle">
+                              segment
+                            </span>
+                            <?php echo $row2['type']; ?>/<?php echo $row2['product_category']; ?>
+                          </p>
+                          <p class="verified">
+                            <span class="material-icons align-middle">
+                              date_range
+                            </span>
+                            <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
+                          </p>
+                          <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                            <a href=""><?php echo 'Seller : ',  $row2['user_id']; ?></a>
+                          </p>
+
+
+                          <div class="btn-prod">
+                            <button type="button" class="btn btn-primary">Item Received</button>
+                            <button type="button" class="btn btn-success"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                            <button type="button" class="btn btn-secondary">View Receipt</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <hr>
+                  <?php } ?>
+                </div>
+                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">This is message</div>
+                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">This is setting</div>
+              </div>
+
+
+            </div>
+
+
+          </div>
         </div>
 
-
+      </div>
     </div>
+
+
+  </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-    
+
 
     <div class="container">
       <div class="copyright">
@@ -182,6 +246,12 @@ if (!isset($_SESSION['User'])) {
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+  <script>
+    $('#myTab a').on('click', function(e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+  </script>
 
 </body>
 

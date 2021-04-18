@@ -18,7 +18,6 @@ if (empty($_SESSION['User'])) {
   <link rel="icon" href="images/logo.png" type="image/gif" />
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <nav class="navbar navbar-dark bg-dark" style="background-color: #000;">
     <a class="navbar-brand" href="../index.php">
@@ -59,7 +58,7 @@ if (empty($_SESSION['User'])) {
                     </td>
                     <td>
                       <br><span class='thin'><?php echo $cart4['product_title'] ?></span>
-                      <br><small><?php echo 'Variation : ',  $cart2['var_product_title']; ?><br> <span class='thin small'><?php echo 'RM ', $cart2['var_product_price']; ?></small><br><span class='thin small'><?php echo 'Quantity : ', $cart['quantity']; ?><br></span>
+                      <br><small><?php echo 'Variation : ',  $cart2['var_product_title']; ?><br> <span class='thin small'><?php echo 'RM ', $cart2['var_product_price']; ?></small><br><span class='thin small'><?php echo 'Quantity : ', $cart['quantity']; ?><br><?php echo 'Seller : ', $cart4['user_id'] ?></span>
                     </td>
                   </tr>
                   <tr>
@@ -123,15 +122,42 @@ if (empty($_SESSION['User'])) {
             Card Number
             <input type="text" maxlength="16" class='input-field'></input>
             Card Holder Name
-            <input type="text" class='input-field'></input>
+            <input type="text" class='input-field' oninput="this.value = this.value.toUpperCase()"></input>
 
             <table class='half-input-table'>
               <tr>
-                <td> Expires
-                  <input type="text" class='input-field'></input>
+                <td>CVV
+                  <input type="text" maxlength="3" class='input-field'></input>
                 </td>
-                <td>CVC
-                  <input class='input-field'></input>
+                <td> MONTH
+                  <select name="month" id="month" class='input-field'>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+                </td>
+                <td> YEAR
+                  <select name="year" id="year" class='input-field'>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                  </select>
                 </td>
               </tr>
             </table>

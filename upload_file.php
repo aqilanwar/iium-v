@@ -113,6 +113,3 @@ session_start();
         exit();
 
     }
-
-?>
-

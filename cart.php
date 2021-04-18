@@ -120,7 +120,6 @@ if (empty($_SESSION['User'])) {
               <?php echo $cart['quantity']; ?>
             </td>
             <td style="vertical-align:middle;">
-
               <?php $subtotal = $cart2['var_product_price'] * $cart['quantity'];
               $displaysubtotal = number_format($subtotal, 2);
               echo 'RM ', $displaysubtotal;
