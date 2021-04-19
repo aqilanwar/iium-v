@@ -96,7 +96,7 @@
                   $price = 'RM'.$row['highest'];
                    
                 else  
-                  $price = 'RM'.$row['lowest'].'- RM '.$row['highest'];
+                  $price = 'RM'.$row['lowest'].' - RM '.$row['highest'];
               } 
             ?>
               <h4 class="price-tag">Price : <?php echo $price ?></h4>

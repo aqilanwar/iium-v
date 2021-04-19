@@ -55,7 +55,7 @@ if (!isset($_SESSION['User'])) {
   <!-- ======= Hero Section ======= -->
   <div class="container" style="margin-top:150px;">
     <div class="row">
-      <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 35%;">
+      <div class="col-lg-6" style="width: 35%;">
         <div class="profile">
           <h1>Profile</h1>
           <div class="card" style="height: 100%;">
@@ -94,7 +94,7 @@ if (!isset($_SESSION['User'])) {
           </div>
         </div>
       </div>
-      <div class="col-lg-6" data-aos="zoom-out" data-aos-delay="50" style="width: 65%;">
+      <div class="col-lg-6" style="width: 65%;">
         <div class="dashboard">
           <div class="title-dashboard d-flex">
             <h1>Dashboard</h1>
@@ -109,7 +109,7 @@ if (!isset($_SESSION['User'])) {
                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Active Ads</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pending Purchase</a>
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pending Purchase (2)</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Success Purchase</a>
@@ -129,13 +129,13 @@ if (!isset($_SESSION['User'])) {
                     $resultpic = mysqli_query($sql_connect, $querypic);
                     $pic = mysqli_fetch_assoc($resultpic);
                   ?>
-                    <div class="card-body">
+                    <div class="card-body" >
                       <div class="item d-inline-flex">
                         <div class="image" style="max-height: 192px; ">
                           <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
                         </div>
                         <div class="title">
-                          <h4><?php echo $row2['product_title']; ?></h4>
+                          <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
                           <p class="name">
                             <span class="material-icons align-middle">
                               segment
@@ -159,17 +159,25 @@ if (!isset($_SESSION['User'])) {
                         </div>
                       </div>
                     </div>
+                    <hr>
                   <?php } ?>
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   <?php
-                  $query2 = "SELECT * FROM product WHERE user_id ='faris_pol' ORDER BY product_date DESC";
+                  $query2 = "SELECT * FROM var_receipt WHERE username ='$usernameSESSION' AND status = 'Pending' ";
                   $result2 = mysqli_query($sql_connect, $query2);
-                  while ($row2 = mysqli_fetch_assoc($result2)) {
-                    $id = $row2['product_id'];
-                    $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
-                    $resultpic = mysqli_query($sql_connect, $querypic);
-                    $pic = mysqli_fetch_assoc($resultpic);
+                  if (mysqli_num_rows($result2) == 0) {
+                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>' ;
+                  }else{
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                    
+                      $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '".$row2['product_id']."'";
+                      $resultpic = mysqli_query($sql_connect, $querypic);
+                      $pic = mysqli_fetch_assoc($resultpic);
+  
+                      $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '".$row2['receipt_id']."'";
+                      $result3 = mysqli_query($sql_connect, $query3);
+                      $date = mysqli_fetch_assoc($result3);
                   ?>
                     <div class="card-body">
                       <div class="item d-inline-flex">
@@ -178,23 +186,11 @@ if (!isset($_SESSION['User'])) {
                         </div>
                         <div class="title">
                           <h5><?php echo $row2['product_title']; ?></h5>
-                          <p class="name">
-                            <span class="material-icons align-middle">
-                              segment
-                            </span>
-                            <?php echo $row2['type']; ?>/<?php echo $row2['product_category']; ?>
-                          </p>
-                          <p class="verified">
-                            <span class="material-icons align-middle">
-                              date_range
-                            </span>
-                            <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
-                          </p>
-                          <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                            <a href=""><?php echo 'Seller : ',  $row2['user_id']; ?></a>
-                          </p>
-
-
+                          <p><?php echo 'Variation : ' , $row2['var_product_title']; ?></p>
+                          <p><?php echo 'Quantity : ' , $row2['var_product_quan']; ?></p>
+                          <div style="display:flex">
+                            <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                          </div>
                           <div class="btn-prod">
                             <button type="button" class="btn btn-primary">Item Received</button>
                             <button type="button" class="btn btn-success"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
@@ -204,7 +200,7 @@ if (!isset($_SESSION['User'])) {
                       </div>
                     </div>
                     <hr>
-                  <?php } ?>
+                  <?php } }?>
                 </div>
                 <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">This is message</div>
                 <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">This is setting</div>

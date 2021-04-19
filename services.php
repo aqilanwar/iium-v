@@ -43,7 +43,7 @@
   <?php include 'inc/header.php' ?>
   <!-- ======= Hero Section ======= -->
     <div class="container" style="margin-top:150px;">
-      <h1>Looking for product?</h1>
+      <h1>Looking for services?</h1>
       <div class="card">
         <div class="card-body">
           <div class="input-group mb-3">
@@ -66,7 +66,7 @@
           </div>
         </div>
       </div>
-      <h1>Product Listing</h1>
+      <h1>Services Listing</h1>
       <?php
         $query = "SELECT * FROM product WHERE type = 'Services' ORDER BY product_date DESC";
         $result = mysqli_query($sql_connect, $query);                    
@@ -96,7 +96,7 @@
                   $price = 'RM'.$row['highest'];
                    
                 else  
-                  $price = 'RM'.$row['lowest'].'- RM '.$row['highest'];
+                  $price = 'RM'.$row['lowest'].' - RM '.$row['highest'];
               } 
             ?>
               <h4 class="price-tag">Price : <?php echo $price ?></h4>

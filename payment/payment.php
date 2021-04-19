@@ -5,6 +5,13 @@ $user = $_SESSION['User'];
 if (empty($_SESSION['User'])) {
   header("Location: login.php");
 }
+
+$query = "SELECT * FROM shopping_cart WHERE username = '$user' ";
+$result = mysqli_query($sql_connect, $query);
+if (mysqli_num_rows($result) == 0) {
+  header("Location: ../profile.php");
+}
+
 ?>
 
 
@@ -14,7 +21,7 @@ if (empty($_SESSION['User'])) {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Podcast4u : : Payment</title>
+  <title>IIUM : : Pocket Money</title>
   <link rel="icon" href="images/logo.png" type="image/gif" />
   <link rel="stylesheet" href="style.css">
 </head>
@@ -117,20 +124,20 @@ if (empty($_SESSION['User'])) {
           </table>
           <img src='https://dl.dropboxusercontent.com/s/ubamyu6mzov5c80/visa_logo%20%281%29.png' height='80' class='credit-card-image' id='credit-card-image'></img>
           Email Adress
-          <form action="pay.php">
+          <form action="../inc/pay.php">
             <input type="email" class='input-field' required></input>
             Card Number
-            <input type="text" maxlength="16" class='input-field'></input>
+            <input type="text" maxlength="16" class='input-field' required></input>
             Card Holder Name
-            <input type="text" class='input-field' oninput="this.value = this.value.toUpperCase()"></input>
+            <input type="text" class='input-field' oninput="this.value = this.value.toUpperCase()" required></input>
 
             <table class='half-input-table'>
               <tr>
                 <td>CVV
-                  <input type="text" maxlength="3" class='input-field'></input>
+                  <input type="text" maxlength="3" class='input-field' required></input>
                 </td>
                 <td> MONTH
-                  <select name="month" id="month" class='input-field'>
+                  <select name="month" id="month" class='input-field' required>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -146,7 +153,7 @@ if (empty($_SESSION['User'])) {
                   </select>
                 </td>
                 <td> YEAR
-                  <select name="year" id="year" class='input-field'>
+                  <select name="year" id="year" class='input-field' required>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
                     <option value="2023">2023</option>
@@ -163,9 +170,7 @@ if (empty($_SESSION['User'])) {
             </table>
             <button class='pay-btn'>Checkout</button>
           </form>
-
         </div>
-
       </div>
     </div>
   </div>
