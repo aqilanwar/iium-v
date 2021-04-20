@@ -1,16 +1,18 @@
 <?php
-  include '../inc/connection.php';
-  session_start();
-  $user = $_SESSION['User'];
-  if(empty($_SESSION['User'])){
+include '../inc/connection.php';
+session_start();
+$user = $_SESSION['User'];
+if (empty($_SESSION['User'])) {
     header("Location: login.php");
-  }
-  $id = $_GET['id'];
-
-  $query = "SELECT * FROM receipt WHERE receipt_id = '$id' ";
-  $result = mysqli_query($sql_connect, $query);
-  $row = mysqli_fetch_assoc($result) ;
-  $total = 0;
+}
+$id = $_GET['id'];
+$query = "SELECT * FROM receipt WHERE receipt_id = '$id' ";
+$result = mysqli_query($sql_connect, $query);
+$row = mysqli_fetch_assoc($result);
+if (mysqli_num_rows($result) == 0) {
+    header("Location: ../profile.php");
+}
+$total = 0;
 ?>
 
 
@@ -42,7 +44,7 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <div class="py-2"> <span class="d-block text-muted">Order Date</span> <span>12 Jan,2018</span> </div>
+                                            <div class="py-2"> <span class="d-block text-muted">Order Date</span> <span><?php echo date(" F j, Y - g:i a", strtotime($row["receipt_date"])) ?></span> </div>
                                         </td>
                                         <td>
                                             <div class="py-2"> <span class="d-block text-muted">Order Id</span> <span><?php echo $id ?></span> </div>
@@ -55,27 +57,28 @@
                         <div class="product border-bottom table-responsive">
                             <table class="table table-borderless">
                                 <tbody>
-                                <?php 
+                                    <?php
                                     $query2 = "SELECT * FROM var_receipt WHERE receipt_id = '$id' ";
                                     $result2 = mysqli_query($sql_connect, $query2);
-                                    while($fetchrow = mysqli_fetch_assoc($result2) ){
-                                        $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '".$fetchrow['product_id']."'";
+                                    while ($fetchrow = mysqli_fetch_assoc($result2)) {
+                                        $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $fetchrow['product_id'] . "'";
                                         $resultpic = mysqli_query($sql_connect, $querypic);
                                         $pic = mysqli_fetch_assoc($resultpic);
-                                ?>
-                                    <tr>
-                                        <td width="20%"> <img src="../images/<?php echo $pic['pic_name'] ?>" width="50" height="50"> </td>
-                                        <td width="60%"> <span class="font-weight-bold"><?php echo $fetchrow['product_title'] ?></span>
-                                            <div class="product-qty"> <span class="d-block">Quantity:<?php echo $fetchrow['var_product_quan']; ?></span> <span>Variation : <?php echo $fetchrow['var_product_title'] ?></span> <span class="d-block">Seller : <?php echo $fetchrow['var_seller']; ?></span></div>
-                                        </td>
-                                        <td width="20%">
-                                            <div class="text-right"> <span class="font-weight-bold">RM <?php $subtotal = number_format($fetchrow['var_product_price'], 2); echo $subtotal ?></span> </div>
-                                        </td>
-                                    </tr>
-                                <?php
-                                    $total = $total + $fetchrow['var_product_price'];
-                                    $total = number_format($total, 2);
-                                 } ?>
+                                    ?>
+                                        <tr>
+                                            <td width="20%"> <img src="../images/<?php echo $pic['pic_name'] ?>" width="50" height="50"> </td>
+                                            <td width="60%"> <span class="font-weight-bold"><?php echo $fetchrow['product_title'] ?></span>
+                                                <div class="product-qty"> <span class="d-block">Quantity:<?php echo $fetchrow['var_product_quan']; ?></span> <span>Variation : <?php echo $fetchrow['var_product_title'] ?></span> <span class="d-block">Seller : <?php echo $fetchrow['var_seller']; ?></span></div>
+                                            </td>
+                                            <td width="20%">
+                                                <div class="text-right"> <span class="font-weight-bold">RM <?php $subtotal = number_format($fetchrow['var_product_price'], 2);
+                                                                                                            echo $subtotal ?></span> </div>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $total = $total + $fetchrow['var_product_price'];
+                                        $total = number_format($total, 2);
+                                    } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -98,7 +101,7 @@
                         <p class="font-weight-bold mb-0">Thanks for shopping with us!</p> <span>IIUM POCKET MONEY</span>
                     </div>
                     <button type="button" style="padding:20px; margin:20px" onclick="location.href='../profile.php'" class="btn btn-success">Go back to profile</button>
-                    <div class="d-flex justify-content-between footer p-3"> <span>Need Help? visit our <a href="#"> help center</a></span> <span>12 June, 2020</span> </div>
+                    <div class="d-flex justify-content-between footer p-3"> <span>IIUM POCKET MONEY </span></div>
                 </div>
             </div>
         </div>

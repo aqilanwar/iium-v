@@ -13,6 +13,8 @@ if (!isset($_SESSION['User'])) {
 
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -98,7 +100,7 @@ if (!isset($_SESSION['User'])) {
         <div class="dashboard">
           <div class="title-dashboard d-flex">
             <h1>Dashboard</h1>
-            <button class="new-ads-btn"><a style="color:white;" href="postads.php">Post a new ads !</a></button>
+            <button class="new-ads-btn" onclick="location.href='postads.php'">Post a new ads !</button>
           </div>
 
 
@@ -129,7 +131,7 @@ if (!isset($_SESSION['User'])) {
                     $resultpic = mysqli_query($sql_connect, $querypic);
                     $pic = mysqli_fetch_assoc($resultpic);
                   ?>
-                    <div class="card-body" >
+                    <div class="card-body">
                       <div class="item d-inline-flex">
                         <div class="image" style="max-height: 192px; ">
                           <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
@@ -150,8 +152,6 @@ if (!isset($_SESSION['User'])) {
                           </p>
                           <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                             <?php echo $row2['product_des']; ?></p>
-
-
                           <div class="btn-prod">
                             <button type="button" class="btn btn-primary">Edit</button>
                             <button type="button" class="btn btn-danger">Delete</button>
@@ -167,52 +167,96 @@ if (!isset($_SESSION['User'])) {
                   $query2 = "SELECT * FROM var_receipt WHERE username ='$usernameSESSION' AND status = 'Pending' ";
                   $result2 = mysqli_query($sql_connect, $query2);
                   if (mysqli_num_rows($result2) == 0) {
-                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>' ;
-                  }else{
+                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>';
+                  } else {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
-                    
-                      $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '".$row2['product_id']."'";
+
+                      $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row2['product_id'] . "'";
                       $resultpic = mysqli_query($sql_connect, $querypic);
                       $pic = mysqli_fetch_assoc($resultpic);
-  
-                      $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '".$row2['receipt_id']."'";
+
+                      $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '" . $row2['receipt_id'] . "'";
                       $result3 = mysqli_query($sql_connect, $query3);
                       $date = mysqli_fetch_assoc($result3);
+
+                      $queryphone = "SELECT phone_num FROM user WHERE username = '" . $row2['var_seller'] . "'";
+                      $resultphone = mysqli_query($sql_connect, $queryphone);
+                      $phonenum = mysqli_fetch_assoc($resultphone);
                   ?>
-                    <div class="card-body">
-                      <div class="item d-inline-flex">
-                        <div class="image" style="max-height: 192px; ">
-                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
-                        </div>
-                        <div class="title">
-                          <h5><?php echo $row2['product_title']; ?></h5>
-                          <p><?php echo 'Variation : ' , $row2['var_product_title']; ?></p>
-                          <p><?php echo 'Quantity : ' , $row2['var_product_quan']; ?></p>
-                          <div style="display:flex">
-                            <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                      <div class="card-body">
+                        <div class="item d-inline-flex">
+                          <div class="image" style="max-height: 192px; ">
+                            <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
                           </div>
-                          <div class="btn-prod">
-                            <button type="button" class="btn btn-primary">Item Received</button>
-                            <button type="button" class="btn btn-success"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
-                            <button type="button" class="btn btn-secondary">View Receipt</button>
+                          <div class="title">
+                            <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
+                            <p><?php echo 'Variation : ', $row2['var_product_title']; ?></p>
+                            <p><?php echo 'Quantity : ', $row2['var_product_quan']; ?></p>
+                            <div style="display:flex">
+                              <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                            </div>
+                            <div class="btn-prod">
+                                <button name='rec_id' class="btn btn-primary" value="<?php echo $row2['var_receipt_id'] ?>" id="btn-submit">Item Received</button>
+                              <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                              <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <hr>
-                  <?php } }?>
+                      <hr>
+                  <?php }
+                  } ?>
                 </div>
-                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">This is message</div>
+                <div class="tab-pane" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                  <?php
+                  $query2 = "SELECT * FROM var_receipt WHERE username ='$usernameSESSION' AND status = 'Success' ";
+                  $result2 = mysqli_query($sql_connect, $query2);
+                  if (mysqli_num_rows($result2) == 0) {
+                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>';
+                  } else {
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+
+                      $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row2['product_id'] . "'";
+                      $resultpic = mysqli_query($sql_connect, $querypic);
+                      $pic = mysqli_fetch_assoc($resultpic);
+
+                      $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '" . $row2['receipt_id'] . "'";
+                      $result3 = mysqli_query($sql_connect, $query3);
+                      $date = mysqli_fetch_assoc($result3);
+
+                      $queryphone = "SELECT phone_num FROM user WHERE username = '" . $row2['var_seller'] . "'";
+                      $resultphone = mysqli_query($sql_connect, $queryphone);
+                      $phonenum = mysqli_fetch_assoc($resultphone);
+                  ?>
+                      <div class="card-body">
+                        <div class="item d-inline-flex">
+                          <div class="image" style="max-height: 192px; ">
+                            <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
+                          </div>
+                          <div class="title">
+                            <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
+                            <p><?php echo 'Variation : ', $row2['var_product_title']; ?></p>
+                            <p><?php echo 'Quantity : ', $row2['var_product_quan']; ?></p>
+                            <div style="display:flex">
+                              <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                            </div>
+                            <div class="btn-prod">
+                              <button type="button" class="btn btn-primary" >Review Product </button>
+                              <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                              <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <hr>
+                  <?php }
+                  } ?>
+                </div>
                 <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">This is setting</div>
               </div>
-
-
             </div>
-
-
           </div>
         </div>
-
       </div>
     </div>
 
@@ -220,14 +264,13 @@ if (!isset($_SESSION['User'])) {
   </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
-
-
     <div class="container">
       <div class="copyright">
         &copy; Copyright <strong><span>IIUM Pocket Money 2021</span></strong>. All Rights Reserved
       </div>
     </div>
-  </footer><!-- End Footer -->
+  </footer>
+  <!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
@@ -239,16 +282,74 @@ if (!isset($_SESSION['User'])) {
   <script src="assets/vendor/purecounter/purecounter.js"></script>
   <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
   <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
-    $('#myTab a').on('click', function(e) {
-      e.preventDefault()
-      $(this).tab('show')
-    })
-  </script>
+    $(document).on('click', '#btn-submit', function(e) {
+      e.preventDefault();
+      var value = $(this).attr('value');
+      Swal.fire({
+        title: 'Are you sure that you have received the item ?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Yes`,
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Saving changes!',
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                  const b = content.querySelector('b')
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft()
+                  }
+                }
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              window.location.assign("inc/received.php?id=" + value);
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    });
 
+    function notification() {
+      Swal.fire(
+        'Thank you for shopping with us !',
+        'We appreciate if you leave review for the item that you purchased.',
+        'success'
+      );
+      document.getElementById("home-tab").className = "nav-link";
+      document.getElementById("home").className = "tab-pane";
+
+      document.getElementById("messages-tab").className += " active";
+      document.getElementById("messages").className += " active";
+    }
+  </script>
+  <?php
+  if (isset($_SESSION['received'])) {
+    echo '<script type="text/javascript">notification();</script>';
+    unset($_SESSION['received']);
+  }
+  ?>
 </body>
 
 </html>

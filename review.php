@@ -55,7 +55,7 @@ if (!isset($_SESSION['User'])) {
     <div class="container" style="margin-top:150px;">
         <div class="container">
 
-            <h2>Post a new ads</h2>
+            <h2>Review</h2>
 
             <hr>
 
@@ -64,61 +64,39 @@ if (!isset($_SESSION['User'])) {
                     <div class="container">
                         <div>
                             <form method="POST" action="upload_file.php" enctype="multipart/form-data">
-                                <h4>Please fill in the form</h4>
-                                <div class="form-group">
-                                    <p class="input-title">Type Of Ads</p>
-                                    <select class="form-select" name="type" aria-label="type" id="type" required>
-                                        <option value="">Select Type</option>
-                                        <option value="1">Product</option>
-                                        <option value="2">Services</option>
-                                    </select>
-                                </div>
+                                <h4>Please fill in your review</h4>
 
-                                <div class="form-group">
-                                    <p class="input-title">Ads Category</p>
-                                    <select class="form-select" name="category" aria-label="category" id="category" required>
-                                        <option value="">Select Category</option>
-                                        <option value="1" id="type1">Food And Beverages</option>
-                                        <option value="2" id="type2">Fashion</option>
-                                        <option value="3" id="type3">Electronics</option>
-                                        <option value="4" id="type4">Others</option>
-                                    </select>
+                                <div class="image" style="text-align: center;">
+                                    <img src="images/16172773550.jpg" width="200px" alt="">
                                 </div>
-
                                 <!-- Title -->
                                 <div class="form-group">
-                                    <p class="input-title">Title</p>
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Title" required>
-                                </div>
-
-                                <!--Variation Options -->
-                                <div class="form-group">
-                                    <p class="input-title">Variation</p>
-                                    <select class="form-select" name="variation" aria-label="variation" id="variation" required>
-                                        <option value="">Select Variation</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                        <option value="7">7</option>
-                                        <option value="8">8</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                    </select>
+                                    <p class="input-title">Product </p>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Product" required disabled>
                                 </div>
                                 <!-- Variation -->
-                                <div class="container" id="var-container">
-                                    <div class="variation">
-
-                                    </div>
+                                <div class="form-group">
+                                    <p class="input-title">Variation</p>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Variation" required>
                                 </div>
+
+                                <!-- Seller -->
+                                <div class="form-group">
+                                    <p class="input-title">Seller</p>
+                                    <input type="text" id="title" name="title" class="form-control" placeholder="Seller" required>
+                                </div>
+
+                                <!-- Variation -->
 
                                 <div class="form-group">
-                                    <p class="input-title">Description</p>
-                                    <textarea name="description" class="form-control" rows="10" placeholder="Write anything about this product..." required></textarea>
+                                    <p class="input-title">Review</p>
+                                    <textarea name="description" class="form-control" rows="10" placeholder="Write your experience about this product/seller..." required></textarea>
                                 </div>
+                                <div class="form-group">
+                                <div id="wrapper">
+                                    <button type="reset" id="reset" style="float:right;" class="btn btn-danger">Reset</button>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Pictures -->
@@ -129,20 +107,6 @@ if (!isset($_SESSION['User'])) {
                         </div>
                         <br>
                         <br>
-                        <div id="select_file">
-                            <div class="form-group">
-                                <p class="input-title">Upload Image </p>
-                            </div>
-                            <div class="form-group">
-                                <div id="wrapper">
-                                    <input type="file" id="upload_file" name="upload_file[]" onchange="preview_image();" multiple required />
-                                    <button type="submit" style="float:right;" class="btn btn-primary" name="submit_image">Submit</button>
-                                    <button type="reset" id="reset" style="float:right;" class="btn btn-danger">Reset</button>
-                                </div>
-                            </div>
-                            <p class="form-message"></p>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -211,7 +175,7 @@ if (!isset($_SESSION['User'])) {
 
         function preview_image() {
             var total_file = document.getElementById("upload_file").files.length;
-            if (total_file > 5) {
+            if (total_file > 6) {
                 alert("You can only upload 5 images per ads.");
                 const file = document.getElementById('upload_file');
                 file.value = '';

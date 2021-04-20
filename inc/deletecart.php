@@ -20,9 +20,6 @@
         $sql = "DELETE FROM shopping_cart WHERE var_product_id = '$prodid' AND username = '$userid' ";
         $delete = mysqli_query($sql_connect, $sql);
 
-        header("Location: ../cart.php");
-
-    
+        header("Location: ../cart.php");    
     }
-
     ?>
