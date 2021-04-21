@@ -114,8 +114,7 @@
                     <td style="vertical-align:middle;">
                         <?php echo $cart['quantity']; ?>
                     </td>
-                    <td style="vertical-align:middle;">
-                        
+                    <td style="vertical-align:middle;">            
                         <?php $subtotal = $cart2['var_product_price'] * $cart['quantity'] ; 
                             $subtotal = number_format($subtotal,2) ;
                             echo 'RM ' , $subtotal;
