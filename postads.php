@@ -211,8 +211,8 @@ if (!isset($_SESSION['User'])) {
 
         function preview_image() {
             var total_file = document.getElementById("upload_file").files.length;
-            if (total_file > 5) {
-                alert("You can only upload 5 images per ads.");
+            if (total_file > 2) {
+                alert("You can only upload 3 images per ads.");
                 const file = document.getElementById('upload_file');
                 file.value = '';
             } else {

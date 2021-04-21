@@ -1,0 +1,8 @@
+                      <tr>
+                        <td width="20%"> <img src="images/16172849960.png" width="50" height="50"> </td>
+                        <td width="30%" style="text-align:left" class="align-middle">You order is on its way !<br><span style="font-size:12px">April 21, 2021 - 10:44 am</span></td>
+                        <td width="50%" style="text-align:right">
+                          <button class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Buyer </button>
+                          <button class="btn btn-success">View Order </button>
+                        </td>
+                      </tr>

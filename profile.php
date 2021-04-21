@@ -167,7 +167,7 @@ if (!isset($_SESSION['User'])) {
                   $query2 = "SELECT * FROM var_receipt WHERE username ='$usernameSESSION' AND status = 'Pending' ";
                   $result2 = mysqli_query($sql_connect, $query2);
                   if (mysqli_num_rows($result2) == 0) {
-                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>';
+                    echo '<p>You pending purchase is currently empty. Shop with us now !</p>';
                   } else {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
 
@@ -190,10 +190,10 @@ if (!isset($_SESSION['User'])) {
                           </div>
                           <div class="title">
                             <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
-                            <p><?php echo 'Variation : ', $row2['var_product_title']; ?></p>
-                            <p><?php echo 'Quantity : ', $row2['var_product_quan']; ?></p>
+                            <p><strong>Variation : </strong><?php echo $row2['var_product_title']; ?></p>
+                            <p><strong>Quantity : </strong><?php echo $row2['var_product_quan']; ?></p>
                             <div style="display:flex">
-                              <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                              <p><strong>Seller : </strong><a href=""><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
                               <button name='rec_id' class="btn btn-primary" value="<?php echo $row2['var_receipt_id'] ?>" id="btn-submit">Item Received</button>
@@ -212,7 +212,7 @@ if (!isset($_SESSION['User'])) {
                   $query2 = "SELECT * FROM var_receipt WHERE username ='$usernameSESSION' AND status = 'Success' ";
                   $result2 = mysqli_query($sql_connect, $query2);
                   if (mysqli_num_rows($result2) == 0) {
-                    echo '<p>You pending purchase is currently empty. Shop now with us !</p>';
+                    echo '<p>You success purchase is currently empty. Shop with us now !</p>';
                   } else {
                     while ($row2 = mysqli_fetch_assoc($result2)) {
 
@@ -241,20 +241,20 @@ if (!isset($_SESSION['User'])) {
                               <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
-                            <?php
-                              if($row2['review_status'] != 'YES'){
+                              <?php
+                              if ($row2['review_status'] != 'YES') {
                               ?>
-                                 <form action="review.php" method="post">
-                                        <button name="review" value="<?php echo $row2['var_receipt_id'] ?>" class="btn btn-primary">Review Product </button>
-                                        <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
-                                        <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
-                                  </form>
-                            <?php  }else{
+                                <form action="review.php" method="post">
+                                  <button name="review" value="<?php echo $row2['var_receipt_id'] ?>" class="btn btn-primary">Review Product </button>
+                                  <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                                  <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                                </form>
+                              <?php  } else {
                               ?>
-                                      <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
-                                      <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                                <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                                <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
 
-                             <?php }
+                              <?php }
                               ?>
 
 
@@ -266,7 +266,45 @@ if (!isset($_SESSION['User'])) {
                   <?php }
                   } ?>
                 </div>
-                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">This is setting</div>
+                <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                  <tbody>
+                    <?php
+                    $query2 = "SELECT * FROM var_receipt WHERE var_seller ='$usernameSESSION' ORDER BY var_receipt_id DESC";
+                    $result2 = mysqli_query($sql_connect, $query2);
+                    if (mysqli_num_rows($result2) == 0) {
+                      echo '<p>You notifcation is empty .</p>';
+                    } else {
+                      while ($row2 = mysqli_fetch_assoc($result2)) {
+
+                        $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row2['product_id'] . "'";
+                        $resultpic = mysqli_query($sql_connect, $querypic);
+                        $pic = mysqli_fetch_assoc($resultpic);
+
+                        $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '" . $row2['receipt_id'] . "'";
+                        $result3 = mysqli_query($sql_connect, $query3);
+                        $date = mysqli_fetch_assoc($result3);
+
+                        $queryphone = "SELECT phone_num FROM user WHERE username = '" . $row2['username'] . "'";
+                        $resultphone = mysqli_query($sql_connect, $queryphone);
+                        $phonenum = mysqli_fetch_assoc($resultphone);
+                    ?>
+                        <table class="table table-light">
+                          <tr>
+                            <td width="20%"> <img src="images/<?php echo $pic['pic_name'] ?>" width="50" height="50"> </td>
+                            <td width="30%" style="text-align:left" class="align-middle">You just received a new order from <a href=""><?php echo $row2['username']  ?></a><br><span style="font-size:12px"><?php echo date(" F j, Y - g:i a", strtotime($date["receipt_date"])) ?></span>
+                              <hr><span style="font-size:14px"><strong>Product : </strong> <br><?php echo $row2['product_title']; ?></span><br><span style="font-size:14px"><strong>Variation : </strong> <br> <?php echo $row2['var_product_title']; ?></span><br><span style="font-size:14px"><strong>Quantity : </strong> <br> <?php echo $row2['var_product_quan']; ?></span>
+                              <hr>
+                            </td>
+                            <td width="50%" style="text-align:right">
+                              <button class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Buyer </button>
+                              <button class="btn btn-primary">Accept </button>
+                            </td>
+                          </tr>
+                      <?php }
+                    } ?>
+                  </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
