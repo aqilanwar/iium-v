@@ -24,7 +24,7 @@ while ($cart = mysqli_fetch_assoc($result)) {
     $result4 = mysqli_query($sql_connect, $query4);
     $cart4 = mysqli_fetch_assoc($result4);
 
-    $insertvarreceipt = "INSERT INTO var_receipt(product_title,var_product_title,var_product_price,product_id,var_product_quan,var_seller,status,username,receipt_id) VALUES ('" . $cart4['product_title'] . "' , '" . $cart2['var_product_title'] . "', '" . $cart2['var_product_price'] . "' , '" . $cart['product_id'] . "', '" . $cart['quantity'] . "','" . $cart4['user_id'] . "' , 'Pending' , '$user' , '$primary_key_receipt')";
+    $insertvarreceipt = "INSERT INTO var_receipt(product_title,var_product_title,var_product_price,product_id,var_product_quan,var_seller,status,username,receipt_id,review_status) VALUES ('" . $cart4['product_title'] . "' , '" . $cart2['var_product_title'] . "', '" . $cart2['var_product_price'] . "' , '" . $cart['product_id'] . "', '" . $cart['quantity'] . "','" . $cart4['user_id'] . "' , 'Pending' , '$user' , '$primary_key_receipt' , 'NO')";
     $insertvarrecei = mysqli_query($sql_connect, $insertvarreceipt);
 
     //CLEAR CART

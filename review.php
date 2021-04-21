@@ -1,8 +1,24 @@
 <?php
+include 'inc/connection.php';
 session_start();
 if (!isset($_SESSION['User'])) {
     header("Location:login.php");
 }
+
+$id = $_POST['review'];
+$query = "SELECT * FROM var_receipt WHERE var_receipt_id = '$id' ";
+$result = mysqli_query($sql_connect, $query);
+$row = mysqli_fetch_assoc($result);
+
+$querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row['product_id'] . "'";
+$resultpic = mysqli_query($sql_connect, $querypic);
+$pic = mysqli_fetch_assoc($resultpic);
+
+if (mysqli_num_rows($result) == 0) {
+    header("Location: ../profile.php");
+}
+
+
 
 
 ?>
@@ -63,54 +79,41 @@ if (!isset($_SESSION['User'])) {
                 <div class="col-md-8 " style="  margin: auto;width: 50%;border: 3px solid #4154f1;padding: 10px;">
                     <div class="container">
                         <div>
-                            <form method="POST" action="upload_file.php" enctype="multipart/form-data">
+                            <form method="POST" action="inc/review.php">
                                 <h4>Please fill in your review</h4>
-
+                                <hr>
                                 <div class="image" style="text-align: center;">
-                                    <img src="images/16172773550.jpg" width="200px" alt="">
+                                    <img src="images/<?php echo $pic['pic_name'] ?>" width="200px" alt="">
                                 </div>
-                                <!-- Title -->
                                 <div class="form-group">
                                     <p class="input-title">Product </p>
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Product" required disabled>
+                                    <p><?php echo $row['product_title'] ?></p>
                                 </div>
-                                <!-- Variation -->
                                 <div class="form-group">
-                                    <p class="input-title">Variation</p>
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Variation" required>
+                                    <p class="input-title">Variation </p>
+                                    <p><?php echo $row['var_product_title'] ?></p>
                                 </div>
-
-                                <!-- Seller -->
                                 <div class="form-group">
-                                    <p class="input-title">Seller</p>
-                                    <input type="text" id="title" name="title" class="form-control" placeholder="Seller" required>
+                                    <p class="input-title">Seller </p>
+                                    <p><?php echo $row['var_seller'] ?></p>
                                 </div>
-
-                                <!-- Variation -->
-
                                 <div class="form-group">
                                     <p class="input-title">Review</p>
-                                    <textarea name="description" class="form-control" rows="10" placeholder="Write your experience about this product/seller..." required></textarea>
+                                    <textarea name="review_content" class="form-control" rows="10" placeholder="Write your experience about this product/seller..." required></textarea>
                                 </div>
-                                <div class="form-group">
+                                <input name="product_id" type="text" value="<?php echo $row['product_id'] ?>" hidden>
+                                <input name="receipt_id" type="text" value="<?php echo $row['var_receipt_id'] ?>" hidden>
                                 <div id="wrapper">
-                                    <button type="reset" id="reset" style="float:right;" class="btn btn-danger">Reset</button>
+                                    <button style="width:100%;margin-top:20px" class="btn btn-success">Submit review</button>
                                 </div>
-                            </div>
                         </div>
-
-                        <!-- Pictures -->
-                        <div class="row" style="margin-top:30px;">
-                            <div id="image_preview" style="display:flex;">
-
-                            </div>
-                        </div>
-                        <br>
-                        <br>
                     </div>
+                    <br>
+                    <br>
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- ======= Footer ======= -->
     <footer id="footer" class="footer">
@@ -133,77 +136,8 @@ if (!isset($_SESSION['User'])) {
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/validator.js"></script>
-    <script src="dist/assets/jquery-file-upload/js/vendor/jquery.ui.widget.js"></script>
-    <script src="dist/assets/jquery-file-upload/js/jquery.iframe-transport.js"></script>
-    <script src="dist/assets/jquery-file-upload/js/jquery.fileupload.js"></script>
-    <script>
-        // For Variation // 
-        $(document).ready(function() {
-            $("#variation").on("change", function() {
-                var numInputs = $(this).val();
-                $('#var-container').html('');
-                for (var i = 1; i <= numInputs; i++) {
-                    var j = i * 1;
-                    var $section = $('<div class="variation" style="display:inline-flex"; ><div class="form-group" ><p class="input-title" >Title Variation ' + j + '<input type="" id="var-title[]" name="var-title[]" class="form-control" placeholder="Title Variation ' + j + '" required></div><div class="form-group"><p class="input-title" >Quantity Variation ' + j + '</p><input min="1" type="number" id="var-quan[]" name="var-quan[]" class="form-control" placeholder="Quantity Variation ' + j + '"></div><div class="form-group"><p class="input-title" >[RM]</p><input min="0" type="number" step="any" id="var-price[]" name="var-price[]" class="form-control" placeholder="Price for Variation  ' + j + '" required></div></div>');
-                    $('#var-container').append($section);
-                }
-            });
-
-            $("#reset").click(function() {
-                $('#image_preview').html("");
-            })
-
-            $("#type").change(function() {
-                var selectedType = $(this).children("option:selected").val();
-                if (selectedType == 1) {
-                    $("#type1").text("Food And Beverages");
-                    $("#type2").text("Fashion");
-                    $("#type3").text("Electronics");
-                    $("#type4").text("Others");
-                } else if (selectedType == 2) {
-                    $("#type1").text("Delivery Service");
-                    $("#type2").text("Educational Service");
-                    $("#type3").text("Cleaning Service");
-                    $("#type4").text("Others");
-                }
-            });
 
 
-        });
-
-        function preview_image() {
-            var total_file = document.getElementById("upload_file").files.length;
-            if (total_file > 6) {
-                alert("You can only upload 5 images per ads.");
-                const file = document.getElementById('upload_file');
-                file.value = '';
-            } else {
-                for (var i = 0; i < total_file; i++) {
-                    $('#image_preview').append("<img height=100px; src='" + URL.createObjectURL(event.target.files[i]) + "'><br>");
-                }
-            }
-        }
-
-        function notification() {
-            Swal.fire(
-                'You have succesfully post your ads!',
-                'We will now redirect you to profile page.',
-                'success'
-            ).then(function() {
-                window.location = "profile.php";
-            });
-        }
-    </script>
-
-
-    <?php
-    if (isset($_SESSION['success'])) {
-        echo '<script type="text/javascript">notification();</script>';
-        unset($_SESSION['success']);
-    }
-    ?>
 </body>
 
 </html>

@@ -19,8 +19,6 @@
             $result = mysqli_query($sql_connect, $sql);                    
             $variation = mysqli_fetch_assoc($result);
 
-
-
             if ($quantity > $variation['var_product_quan']){
                 echo "<span class='form-error'> Please insert valid quantity !</span> <br>";
             }else{

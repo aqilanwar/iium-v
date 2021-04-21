@@ -196,7 +196,7 @@ if (!isset($_SESSION['User'])) {
                               <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
-                                <button name='rec_id' class="btn btn-primary" value="<?php echo $row2['var_receipt_id'] ?>" id="btn-submit">Item Received</button>
+                              <button name='rec_id' class="btn btn-primary" value="<?php echo $row2['var_receipt_id'] ?>" id="btn-submit">Item Received</button>
                               <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
                               <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
                             </div>
@@ -241,9 +241,23 @@ if (!isset($_SESSION['User'])) {
                               <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
-                              <button type="button" class="btn btn-primary" >Review Product </button>
-                              <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
-                              <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                            <?php
+                              if($row2['review_status'] != 'YES'){
+                              ?>
+                                 <form action="review.php" method="post">
+                                        <button name="review" value="<?php echo $row2['var_receipt_id'] ?>" class="btn btn-primary">Review Product </button>
+                                        <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                                        <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+                                  </form>
+                            <?php  }else{
+                              ?>
+                                      <button type="button" class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Seller </button>
+                                      <button type="button" class="btn btn-secondary" target="_blank" onclick="window.open('receipt/receipt.php?id=<?php echo $row2['receipt_id'] ?>');">View Receipt</button>
+
+                             <?php }
+                              ?>
+
+
                             </div>
                           </div>
                         </div>
@@ -343,11 +357,28 @@ if (!isset($_SESSION['User'])) {
       document.getElementById("messages-tab").className += " active";
       document.getElementById("messages").className += " active";
     }
+
+    function review() {
+      Swal.fire(
+        'We have received your feedback!',
+        'Thank you for shopping with us.',
+        'success'
+      );
+      document.getElementById("home-tab").className = "nav-link";
+      document.getElementById("home").className = "tab-pane";
+
+      document.getElementById("messages-tab").className += " active";
+      document.getElementById("messages").className += " active";
+    }
   </script>
   <?php
   if (isset($_SESSION['received'])) {
     echo '<script type="text/javascript">notification();</script>';
     unset($_SESSION['received']);
+  }
+  if (isset($_SESSION['review'])) {
+    echo '<script type="text/javascript">review();</script>';
+    unset($_SESSION['review']);
   }
   ?>
 </body>
