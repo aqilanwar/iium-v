@@ -3,7 +3,7 @@ include 'inc/connection.php';
 session_start();
 
 $usernameSESSION = $_SESSION['User'];
-$query = "SELECT matricid,username,full_name,gender,email,phone_num,user_type,address FROM user WHERE username = '$usernameSESSION' ";
+$query = "SELECT * FROM user WHERE username = '$usernameSESSION' ";
 $result = mysqli_query($sql_connect, $query);
 $row = mysqli_fetch_assoc($result);
 
@@ -23,9 +23,6 @@ if (!isset($_SESSION['User'])) {
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>IIUM : : Pocket Money</title>
-  <meta content="" name="description">
-
-  <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -62,7 +59,7 @@ if (!isset($_SESSION['User'])) {
           <h1>Profile</h1>
           <div class="card" style="height: 100%;">
             <div class="card-body" style="display: flex; flex-direction: column;">
-              <img src="assets/img/profile.png" style="border-radius:50%" width="50px" alt="">
+              <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%" width="50px" alt="">
               <div class="container">
                 <p class="verified align-middle" style="text-align:center; font-size:20px;">
                   <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
@@ -88,7 +85,7 @@ if (!isset($_SESSION['User'])) {
                 <p><?php echo $row['user_type'] ?></p>
 
                 <div class="center-btn">
-                  <button class="profile-update">Update Profile</button>
+                  <button class="profile-update" onclick="location.href='updateprofile.php'">Update Profile</button>
                 </div>
               </div>
 

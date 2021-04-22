@@ -15,10 +15,6 @@ if (!isset($_SESSION['User'])) {
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
     <title>IIUM : : Pocket Money</title>
-    <meta content="" name="description">
-
-    <meta content="" name="keywords">
-
     <!-- Favicons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="assets/img/ipm-logo-01.png" rel="icon">
@@ -54,13 +50,10 @@ if (!isset($_SESSION['User'])) {
 
     <div class="container" style="margin-top:150px;">
         <div class="container">
-
             <h2>Post a new ads</h2>
-
             <hr>
-
             <div class="row">
-                <div class="col-md-8 " style="  margin: auto;width: 50%;border: 3px solid #4154f1;padding: 10px;">
+                <div class="col-md-8 " style=" margin: auto;width: 50%;border: 3px solid #4154f1;padding: 10px;">
                     <div class="container">
                         <div>
                             <form method="POST" action="upload_file.php" enctype="multipart/form-data">
@@ -158,7 +151,9 @@ if (!isset($_SESSION['User'])) {
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+    </body>
 
+</html>
 
     <!-- Vendor JS Files -->
     <script src="assets/vendor/aos/aos.js"></script>
@@ -211,7 +206,7 @@ if (!isset($_SESSION['User'])) {
 
         function preview_image() {
             var total_file = document.getElementById("upload_file").files.length;
-            if (total_file > 2) {
+            if (total_file > 3) {
                 alert("You can only upload 3 images per ads.");
                 const file = document.getElementById('upload_file');
                 file.value = '';
@@ -240,6 +235,3 @@ if (!isset($_SESSION['User'])) {
         unset($_SESSION['success']);
     }
     ?>
-</body>
-
-</html>
