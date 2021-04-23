@@ -129,7 +129,7 @@
                  <!-- Phone Number -->
                 <div class="form-group">
                     <p class="input-title" >Phone Number</p>
-                    <input type="text" id="phonenumber" name="phonenumber" class="form-control" placeholder="Phone Number" >
+                    <input type="text" id="phonenumber" name="phonenumber" class="form-control" placeholder="Example : 60123456789" >
                 </div>
 
                  <!-- Password -->

@@ -106,6 +106,43 @@ $total = 0;
             </div>
         </div>
     </div>
+    
 </body>
-
 </html>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+<script>
+  $(document).on('click', '#btn-submit', function(e) {
+    if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Saving changes!',
+          timer: 1000,
+          timerProgressBar: true,
+          didOpen: () => {
+            Swal.showLoading()
+            timerInterval = setInterval(() => {
+              const content = Swal.getContent()
+              if (content) {
+                const b = content.querySelector('b')
+                if (b) {
+                  b.textContent = Swal.getTimerLeft()
+                }
+              }
+            }, 100)
+          },
+          willClose: () => {
+            clearInterval(timerInterval)
+          }
+        }).then((result) => {
+          /* Read more about handling dismissals below */
+          if (result.dismiss === Swal.DismissReason.timer) {
+            window.location.assign("inc/received.php?id=" + value);
+          }
+        })
+      }
+  });
+
+  
+</script>

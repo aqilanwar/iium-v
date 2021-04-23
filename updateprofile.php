@@ -42,9 +42,9 @@ if (!isset($_SESSION['User'])) {
     <script src="https://unpkg.com/cropperjs"></script>
 
 
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
     <style>
         .image_area {
@@ -113,7 +113,7 @@ if (!isset($_SESSION['User'])) {
                             <div class="image_area" style=" margin: auto;">
                                 <form method="post">
                                     <label for="upload_image">
-                                        <img src="images/profile/<?php echo $row['profile_pic'] ?>" id="uploaded_image" width="110px" style="  border-radius: 50%" class="img-responsive img-circle" />
+                                        <img src="images/profile/<?php echo $row['profile_pic'] ?>" id="uploaded_image" width="20px" style="border-radius: 50%" class="img-responsive img-circle" />
                                         <div class="overlay">
                                             <div class="text">Click to Change Profile Image</div>
                                         </div>
@@ -121,54 +121,53 @@ if (!isset($_SESSION['User'])) {
                                     </label>
                                 </form>
                             </div>
-                            <div class="container">
-                                <p class="verified align-middle" style="text-align:center; font-size:20px;">
-                                    Verified
-                                    <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
-                                        verified_user
-                                    </span>
-                                </p>
-                                <p><strong>Username</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Username" value="<?php echo $row['username'] ?>" aria-label="Username" aria-describedby="basic-addon2" readonly>
-                                </div>
-                                <p><strong>Matric ID </strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Matric ID " value="<?php echo $row['matricid'] ?>" aria-label="Matric ID " aria-describedby="basic-addon2" readonly>
-                                </div>
-                                <p><strong>Email</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Email" value="<?php echo $row['email'] ?>" aria-label="Email" aria-describedby="basic-addon2" readonly>
-                                </div>
-                                <p><strong>Gender</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Gender" value="<?php echo $row['gender'] ?>" aria-label="Gender" aria-describedby="basic-addon2" readonly>
-                                </div>
+                            <form method="post" action="inc/update.php" id="profiledetail">
+                                <div class="container">
+                                    <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                                        Verified
+                                        <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
+                                            verified_user
+                                        </span>
+                                    </p>
+                                    <p><strong>Username</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $row['username'] ?>" aria-label="Username" aria-describedby="basic-addon2" readonly>
+                                    </div>
+                                    <p><strong>Matric ID </strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Matric ID " value="<?php echo $row['matricid'] ?>" aria-label="Matric ID " aria-describedby="basic-addon2" readonly>
+                                    </div>
+                                    <p><strong>Email</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Email" value="<?php echo $row['email'] ?>" aria-label="Email" aria-describedby="basic-addon2" readonly>
+                                    </div>
+                                    <p><strong>Gender</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="Gender" value="<?php echo $row['gender'] ?>" aria-label="Gender" aria-describedby="basic-addon2" readonly>
+                                    </div>
 
-                                <p><strong>User Type</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="User Type" value="<?php echo $row['user_type'] ?>" aria-label="User Type" aria-describedby="basic-addon2" readonly>
-                                </div>
-                                <p><strong>Full name</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Full Name" value="<?php echo $row['full_name'] ?>" aria-label="Full Name" aria-describedby="basic-addon2 ">
-                                </div>
-                                <p><strong>Phone Number</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Phone Number" value="<?php echo $row['phone_num'] ?>" aria-label="Phone Number" aria-describedby="basic-addon2">
-                                </div>
+                                    <p><strong>User Type</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" placeholder="User Type" value="<?php echo $row['user_type'] ?>" aria-label="User Type" aria-describedby="basic-addon2" readonly>
+                                    </div>
+                                    <p><strong>Full name</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="fullname" placeholder="Full Name" value="<?php echo $row['full_name'] ?>" aria-label="Full Name" aria-describedby="basic-addon2 ">
+                                    </div>
+                                    <p><strong>Phone Number</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="phonenum" placeholder="Phone Number" value="<?php echo $row['phone_num'] ?>" aria-label="Phone Number" aria-describedby="basic-addon2">
+                                    </div>
 
-                                <p><strong>Address</strong></p>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Address" value="<?php echo $row['address'] ?>" aria-label="Address" aria-describedby="basic-addon2">
+                                    <p><strong>Address</strong></p>
+                                    <div class="input-group mb-3">
+                                        <input type="text" class="form-control" name="address" placeholder="Address" value="<?php echo $row['address'] ?>" aria-label="Address" aria-describedby="basic-addon2">
+                                    </div>
+                                    <div class="center-btn">
+                                        <button class="profile-update" id="btn-submit">Update Profile</button>
+                                    </div>
                                 </div>
-
-
-                                <div class="center-btn">
-                                    <button class="profile-update" onclick="location.href='updateprofile.php'">Update Profile</button>
-                                </div>
-                            </div>
-
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -192,7 +191,7 @@ if (!isset($_SESSION['User'])) {
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" id="crop" class="btn btn-primary">Update profile pic</button>
+                            <button type="button" id="crop" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -214,6 +213,7 @@ if (!isset($_SESSION['User'])) {
 </body>
 
 </html>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script>
     $(document).ready(function() {
@@ -276,4 +276,62 @@ if (!isset($_SESSION['User'])) {
         });
 
     });
+</script>
+
+<script>
+    $(document).on('click', '#btn-submit', function(e) {
+        e.preventDefault();
+        var value = $(this).attr('value');
+        Swal.fire({
+            title: 'Save changes ?',
+            showDenyButton: true,
+            showCancelButton: true,
+            confirmButtonText: `Yes`,
+            denyButtonText: `No`,
+        }).then((result) => {
+            /* Read more about isConfirmed, isDenied below */
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Saving changes!',
+                    timer: 1000,
+                    timerProgressBar: true,
+                    didOpen: () => {
+                        Swal.showLoading()
+                        timerInterval = setInterval(() => {
+                            const content = Swal.getContent()
+                            if (content) {
+                                const b = content.querySelector('b')
+                                if (b) {
+                                    b.textContent = Swal.getTimerLeft()
+                                }
+                            }
+                        }, 100)
+                    },
+                    willClose: () => {
+                        clearInterval(timerInterval)
+                    }
+                }).then((result) => {
+                    /* Read more about handling dismissals below */
+                    if (result.dismiss === Swal.DismissReason.timer) {
+                        $("#profiledetail").submit() ; 
+                    }
+                })
+            } else if (result.isDenied) {
+                Swal.fire('Changes are not saved', '', 'info')
+            }
+        })
+    });
+
+    function notification() {
+        Swal.fire(
+            'Success !',
+            'You have updated your profile .',
+            'success'
+        );
+        document.getElementById("home-tab").className = "nav-link";
+        document.getElementById("home").className = "tab-pane";
+
+        document.getElementById("messages-tab").className += " active";
+        document.getElementById("messages").className += " active";
+    }
 </script>

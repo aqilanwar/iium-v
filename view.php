@@ -286,7 +286,7 @@ $id = $_GET['view_prod'];
             <span class="material-icons align-middle">
               account_circle
             </span>
-            <a href="#"><?php echo $prod['user_id']; ?></a>
+            <a href="viewprofile.php?id=<?php echo $prod['user_id'] ?>"><?php echo $prod['user_id']; ?></a>
           </p>
           <p class="verified">
             <span class="material-icons align-middle">
@@ -362,15 +362,10 @@ $id = $_GET['view_prod'];
   <?php
   $query4 = "SELECT * FROM review WHERE product_id = '$id' ";
   $result4 = mysqli_query($sql_connect, $query4);
-
-  //  $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row['product_id'] . "'";
-  //$resultpic = mysqli_query($sql_connect, $querypic);
-  // $pic = mysqli_fetch_assoc($resultpic);
-
   $totalrow = mysqli_num_rows($result4);
 
   ?>
-  <div class="container">
+  <div class="container" style="margin-top:50px">
     <h1>Review ( <?php echo $totalrow ?> )</h1>
   </div>
   <?php
@@ -392,21 +387,33 @@ $id = $_GET['view_prod'];
 
     <?php } else {
     while ($row4 = mysqli_fetch_assoc($result4)) {
+
+      $queryprofilepic = "SELECT profile_pic FROM user WHERE username = '" . $row4['review_username'] . "'";
+      $resultpic = mysqli_query($sql_connect, $queryprofilepic);
+      $pic = mysqli_fetch_assoc($resultpic);
+
+      $queryvariation = "SELECT var_product_title FROM var_receipt WHERE var_receipt_id = '" . $row4['receipt_id'] . "'";
+      $resultvariaton = mysqli_query($sql_connect, $queryvariation);
+      $variation = mysqli_fetch_assoc($resultvariaton);
+
     ?>
 
       <div class="container">
 
         <div class="card">
           <div class="card-body">
-            <div class="container">
+            <div class="container" style="margin:60px">
               <div class="row">
-                <div class="col-lg-3">
-                  <img src="assets/img/profile.png" style="width:100px; height:200px" class="img-fluid" alt="">
+                <div class="col-md-4">
+                <img src="images/profile/<?php echo $pic['profile_pic'] ?>" style="border-radius:50%;object-fit:scale-down;  width: 70px;">
                 </div>
                 <div class="col-lg-6 d-flex flex-column">
                   <h1><?php echo $row4['review_username'] ?></h1>
+                  <p> Variation : <?php echo $variation['var_product_title'] ?></p>
                   <hr>
                   <p><?php echo $row4['review_content']  ?></p>
+                  <p style="font-size:12px ; text-align:right"> Date : <?php echo date(" F j, Y - g:i a", strtotime($row4["date"])) ?></p>
+
                 </div>
               </div>
             </div>

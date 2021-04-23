@@ -13,8 +13,6 @@ if (mysqli_num_rows($result) == 0) {
 }
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -175,6 +173,5 @@ if (mysqli_num_rows($result) == 0) {
     </div>
   </div>
 </body>
-<script src="payment.js"> </script>
-
 </html>
+

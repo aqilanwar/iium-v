@@ -59,7 +59,7 @@ if (!isset($_SESSION['User'])) {
           <h1>Profile</h1>
           <div class="card" style="height: 100%;">
             <div class="card-body" style="display: flex; flex-direction: column;">
-              <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%" width="50px" alt="">
+              <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%;  width: 100px;"alt="">
               <div class="container">
                 <p class="verified align-middle" style="text-align:center; font-size:20px;">
                   <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
@@ -88,7 +88,6 @@ if (!isset($_SESSION['User'])) {
                   <button class="profile-update" onclick="location.href='updateprofile.php'">Update Profile</button>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
@@ -131,7 +130,7 @@ if (!isset($_SESSION['User'])) {
                     <div class="card-body">
                       <div class="item d-inline-flex">
                         <div class="image" style="max-height: 192px; ">
-                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="">
+                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="prod img">
                         </div>
                         <div class="title">
                           <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
@@ -190,7 +189,8 @@ if (!isset($_SESSION['User'])) {
                             <p><strong>Variation : </strong><?php echo $row2['var_product_title']; ?></p>
                             <p><strong>Quantity : </strong><?php echo $row2['var_product_quan']; ?></p>
                             <div style="display:flex">
-                              <p><strong>Seller : </strong><a href=""><?php echo $row2['var_seller']; ?></a></p>
+
+                              <p><strong>Seller : </strong><a href="viewprofile.php?id=<?php echo $row2['var_seller']; ?>"><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
                               <button name='rec_id' class="btn btn-primary" value="<?php echo $row2['var_receipt_id'] ?>" id="btn-submit">Item Received</button>
@@ -232,10 +232,10 @@ if (!isset($_SESSION['User'])) {
                           </div>
                           <div class="title">
                             <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
-                            <p><?php echo 'Variation : ', $row2['var_product_title']; ?></p>
-                            <p><?php echo 'Quantity : ', $row2['var_product_quan']; ?></p>
+                            <p><strong>Variation : </strong><?php echo  $row2['var_product_title']; ?></p>
+                            <p><strong>Quantity : </strong><?php echo $row2['var_product_quan']; ?></p>
                             <div style="display:flex">
-                              <p>Seller : <a href=""><?php echo $row2['var_seller']; ?></a></p>
+                            <p><strong>Seller : </strong><a href="viewprofile.php?id=<?php echo $row2['var_seller']; ?>"><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
                               <?php
@@ -405,6 +405,13 @@ if (!isset($_SESSION['User'])) {
       document.getElementById("messages-tab").className += " active";
       document.getElementById("messages").className += " active";
     }
+    function updateProfile() {
+      Swal.fire(
+        'Success !',
+        'You have successfully updated your profile detail',
+        'success'
+      );
+    }
   </script>
   <?php
   if (isset($_SESSION['received'])) {
@@ -414,6 +421,10 @@ if (!isset($_SESSION['User'])) {
   if (isset($_SESSION['review'])) {
     echo '<script type="text/javascript">review();</script>';
     unset($_SESSION['review']);
+  }
+  if (isset($_SESSION['updateprofile'])) {
+    echo '<script type="text/javascript">updateProfile();</script>';
+    unset($_SESSION['updateprofile']);
   }
   ?>
 </body>

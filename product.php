@@ -118,7 +118,7 @@
               <span class="material-icons">
                 account_circle
                 </span>
-              <a href="#"><?php echo $prod['user_id']?></a>
+                <a href="viewprofile.php?id=<?php echo $prod['user_id'] ?>"><?php echo $prod['user_id']; ?></a>
             </p>
             <p class="verified">
               <span class="material-icons">

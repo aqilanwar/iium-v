@@ -13,10 +13,6 @@
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>IIUM : : Pocket Money</title>
-  <meta content="" name="description">
-
-  <meta content="" name="keywords">
-
   <!-- Favicons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
   <link href="assets/img/ipm-logo-01.png" rel="icon">
@@ -45,7 +41,7 @@
 
   
   <!-- ======= Hero Section ======= -->
-  <div class="container" style="margin-top:150px;">
+  <div class="container" style="margin-top:150px; height: 77vh;">
     <div class="container">
         <div class="row">
           <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="50">
