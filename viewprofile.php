@@ -8,12 +8,14 @@ $query = "SELECT * FROM user WHERE username = '$id' ";
 $result = mysqli_query($sql_connect, $query);
 $row = mysqli_fetch_assoc($result);
 
-if (empty($_SESSION['User'])) {
-    header("Location: login.php");
-}
-if ($id == $_SESSION['User']) {
+if(isset($_SESSION['User'])){
+
+  if ($_SESSION['User'] == $id ) {
     header("Location: profile.php");
+  }
+
 }
+
 if (empty($id)) {
     header("Location: profile.php");
 }
@@ -87,7 +89,7 @@ if (mysqli_num_rows($result) == 0) {
             <h4>Continue shopping with us !</h4> <a href="services.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Services </a>
             <a href="product.php" class="btn btn-primary cart-btn-transform m-3" data-abc="true">Product </a>
           </div>
-         </div>';
+         </div>
     <?php 
         } else { 
     ?>
@@ -100,12 +102,22 @@ if (mysqli_num_rows($result) == 0) {
             <div class="card-body" style="display: flex; flex-direction: column;">
               <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%;  width: 100px;"alt="">
               <div class="container">
-                <p class="verified align-middle" style="text-align:center; font-size:20px;">
-                  <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
-                    verified_user
-                  </span>
-                  Verified User
-                </p>
+              <?php if ($row['acc_status'] == 'Verified') {
+                ?>
+                  <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                    <span class="material-icons align-middle">
+                      check_circle
+                    </span>
+                    Verified User
+                  </p>
+                <?php } else { ?>
+                  <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                    <span class="material-icons align-middle">
+                      error
+                    </span>
+                    Unverified User
+                  </p>
+                <?php } ?>
                 <p class="title-profile">Full Name :</p>
                 <p><?php echo $row['full_name'] ?></p>
                 <p class="title-profile">Username :</p>
@@ -137,8 +149,6 @@ if (mysqli_num_rows($result) == 0) {
           <div class="title-dashboard d-flex">
             <h1>Dashboard</h1>
           </div>
-
-
           <div class="card text-center">
             <div class="card-header">
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -152,7 +162,7 @@ if (mysqli_num_rows($result) == 0) {
                   $query2 = "SELECT * FROM product WHERE user_id ='$id' ORDER BY product_date DESC";
                   $result2 = mysqli_query($sql_connect, $query2);
                   if (mysqli_num_rows($result2) == 0) {
-                    echo '<p>You pending purchase is currently empty. Shop with us now !</p>';
+                    echo '<p>This user currently have no ads.</p>';
                   } else {
                   while ($row2 = mysqli_fetch_assoc($result2)) {
                     $id = $row2['product_id'];
@@ -194,7 +204,6 @@ if (mysqli_num_rows($result) == 0) {
       </div>
     </div>
     <?php } ?>
-
   </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

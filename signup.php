@@ -2,6 +2,8 @@
   session_start();
   if(isset($_SESSION['User'])){
     header("Location:profile.php");
+  }else if(isset($_SESSION['Admin'])){
+    header("Location:admindashboard.php");
   }
 ?>
 

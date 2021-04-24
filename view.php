@@ -1,10 +1,16 @@
 <?php
 include 'inc/connection.php';
 session_start();
+$id = $_GET['view_prod'];
+$query = "SELECT * FROM product WHERE product_id = '$id' ";
+$result = mysqli_query($sql_connect, $query);
+$row = mysqli_fetch_assoc($result);
 
-if (!isset($_SESSION['User'])) {
-  header("Location: login.php");
+$found = true ;
+if (mysqli_num_rows($result) == 0) {
+    $found = false;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -15,9 +21,6 @@ if (!isset($_SESSION['User'])) {
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>IIUM : : Pocket Money</title>
-  <meta content="" name="description">
-
-  <meta content="" name="keywords">
 
   <!-- Favicons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -214,14 +217,25 @@ if (!isset($_SESSION['User'])) {
   }
 </style>
 
-<?php
-$id = $_GET['view_prod'];
-?>
+
 
 <body>
   <!-- ======= Header ======= -->
   <?php include 'inc/header.php' ?>
   <!-- ======= Hero Section ======= -->
+      <?php 
+        if($found == false){ 
+    ?>
+      <div class="container" style="margin-top:150px; height:80vh">
+        <div class="card-body cart">
+          <div class="col-sm-12 empty-cart-cls text-center"> <img src="assets/img/notfound.png" width="100" height="100" class="img-fluid mb-4 mr-3">
+            <h3><strong>Ads not found :(</strong></h3>            
+         </div>
+         </div>
+         </div>
+    <?php 
+        } else { 
+    ?>
   <div class="container" style="margin-top:10%; border:1px">
     <div class="row">
       <div class="col-lg-6 hero-img">
@@ -288,12 +302,27 @@ $id = $_GET['view_prod'];
             </span>
             <a href="viewprofile.php?id=<?php echo $prod['user_id'] ?>"><?php echo $prod['user_id']; ?></a>
           </p>
-          <p class="verified">
+          <?php
+          $checkverified = "SELECT acc_status FROM user WHERE username  = '" . $prod['user_id'] . "'";
+          $resultcheckverified = mysqli_query($sql_connect, $checkverified);
+          $verified = mysqli_fetch_assoc($resultcheckverified);
+          if ($verified['acc_status'] == 'Verified') {
+          ?>
+            <p class="verified">
+              <span class="material-icons align-middle">
+                check_circle
+              </span>
+              Verified User
+            </p>
+          <?php } else { ?>
+            <p class="verified">
             <span class="material-icons align-middle">
-              verified_user
+              error
             </span>
-            Verified User
+            Unverified User
           </p>
+          <?php } ?>
+
           <p class="verified">
             <span class="material-icons align-middle">
               date_range
@@ -350,9 +379,22 @@ $id = $_GET['view_prod'];
         </div>
         <input type="text" value="<?php echo $id ?>" name="prodid" id="prodid" hidden>
         <div class="btn-prod">
-          <button type="submit" name="submit" value="submit" class="go-to-btn">Add to cart <i class='fa fa-shopping-cart'></i></button>
-          <button class="contact-btn">WhatsApp <i class="fa fa-whatsapp" style="font-size:24px"></i></button>
-          <p class="form-message"></p>
+          <?php
+          if (isset($_SESSION['Admin'])) {
+            echo '';
+          } else if (!isset($_SESSION['User'])) {
+            echo '';
+          } else if ($_SESSION['User'] == $prod['user_id']) {
+            echo '';
+          } else {
+            $phonenumquery = "SELECT phone_num FROM user WHERE username = '" . $prod['user_id'] . "' ";
+            $phonenumresult = mysqli_query($sql_connect, $phonenumquery);
+            $phonenum = mysqli_fetch_assoc($phonenumresult);
+          ?>
+            <button type="submit" name="submit" value="submit" class="go-to-btn">Add to cart <i class='fa fa-shopping-cart'></i></button>
+            <button type="button" class="contact-btn" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>')" ;>WhatsApp <i class="fa fa-whatsapp" style="font-size:24px"></i></button>
+            <p class="form-message"></p>
+          <?php } ?>
         </div>
       </div>
       </form>
@@ -399,13 +441,12 @@ $id = $_GET['view_prod'];
     ?>
 
       <div class="container">
-
         <div class="card">
           <div class="card-body">
             <div class="container" style="margin:60px">
               <div class="row">
                 <div class="col-md-4">
-                <img src="images/profile/<?php echo $pic['profile_pic'] ?>" style="border-radius:50%;object-fit:scale-down;  width: 70px;">
+                  <img src="images/profile/<?php echo $pic['profile_pic'] ?>" style="border-radius:50%;object-fit:scale-down;  width: 70px;">
                 </div>
                 <div class="col-lg-6 d-flex flex-column">
                   <h1><?php echo $row4['review_username'] ?></h1>
@@ -422,8 +463,8 @@ $id = $_GET['view_prod'];
       </div>
 
 
-  <?php }
-  } ?>
+  <?php 
+  }}} ?>
 
 
 

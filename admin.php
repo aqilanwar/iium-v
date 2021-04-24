@@ -2,8 +2,6 @@
   session_start();
   if(isset($_SESSION['User'])){
     header("Location:profile.php");
-  }else if(isset($_SESSION['Admin'])){
-    header("Location:admindashboard.php");
   }
 ?>
 
@@ -45,33 +43,25 @@
   <!-- ======= Hero Section ======= -->
   <div class="container" style="margin-top:150px; height: 77vh;">
     <div class="container">
-        <div class="row">
-          <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="50">
-              <img src="assets/img/features-3.png" class="img-fluid" alt="">
-          </div>
-          <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="zoom-out" data-aos-delay="50">
+
+          <div class="justify-content-center" data-aos="zoom-out" data-aos-delay="50">
             <div class="login-form">    
               <form action="inc/login.php" method="post">
               <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
-                <h4 class="modal-title">Login to Your Account</h4>
+                <h4 class="modal-title">Admin Login</h4>
                   <div class="form-group">
                       <input type="text" class="form-control" placeholder="Username" name="username" id="username" required="required" >
                   </div>
                   <div class="form-group">
                       <input type="password" class="form-control" placeholder="Password" name="password" id="password" required="required"  >
                   </div>
-                  <div class="form-group small clearfix">
-                      <label class="form-check-label"><input type="checkbox"> Remember me</label>
-                      <a href="#" class="forgot-link">Forgot Password?</a>
-                  </div> 
                   <input type="submit" class="btn btn-primary btn-block btn-lg " name="login" value="Login">  
                   <p class="form-message"></p>                      
               </form>			
-              <div class="text-center small">Don't have an account? <a href="signup.php">Sign up</a></div>
           </div>
           </div>
         </div>
-      </div>
+
 </div>
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
@@ -107,7 +97,7 @@
             var username = $("#username").val();
             var password = $("#password").val();
 
-          $(".form-message").load("inc/login.php", {
+          $(".form-message").load("inc/admin.php", {
               username: username,
               password: password
             });

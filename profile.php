@@ -59,14 +59,24 @@ if (!isset($_SESSION['User'])) {
           <h1>Profile</h1>
           <div class="card" style="height: 100%;">
             <div class="card-body" style="display: flex; flex-direction: column;">
-              <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%;  width: 100px;"alt="">
+              <img src="images/profile/<?php echo $row['profile_pic'] ?>" style="border-radius:50%;  width: 100px;" alt="">
               <div class="container">
-                <p class="verified align-middle" style="text-align:center; font-size:20px;">
-                  <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
-                    verified_user
-                  </span>
-                  Verified User
-                </p>
+                <?php if ($row['acc_status'] == 'Verified') {
+                ?>
+                  <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                    <span class="material-icons align-middle">
+                      check_circle
+                    </span>
+                    Verified User
+                  </p>
+                <?php } else { ?>
+                  <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                    <span class="material-icons align-middle">
+                      error
+                    </span>
+                    Unverified User
+                  </p>
+                <?php } ?>
                 <p class="title-profile">Full Name :</p>
                 <p><?php echo $row['full_name'] ?></p>
                 <p class="title-profile">Username :</p>
@@ -121,42 +131,47 @@ if (!isset($_SESSION['User'])) {
                   <?php
                   $query2 = "SELECT * FROM product WHERE user_id ='$usernameSESSION' ORDER BY product_date DESC";
                   $result2 = mysqli_query($sql_connect, $query2);
-                  while ($row2 = mysqli_fetch_assoc($result2)) {
-                    $id = $row2['product_id'];
-                    $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
-                    $resultpic = mysqli_query($sql_connect, $querypic);
-                    $pic = mysqli_fetch_assoc($resultpic);
+                  if (mysqli_num_rows($result2) == 0) {
+                    echo '<p>You have no active ads.</p>';
+                  } else {
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+
+                      $id = $row2['product_id'];
+                      $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '$id'";
+                      $resultpic = mysqli_query($sql_connect, $querypic);
+                      $pic = mysqli_fetch_assoc($resultpic);
                   ?>
-                    <div class="card-body">
-                      <div class="item d-inline-flex">
-                        <div class="image" style="max-height: 192px; ">
-                          <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="prod img">
-                        </div>
-                        <div class="title">
-                          <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
-                          <p class="name">
-                            <span class="material-icons align-middle">
-                              segment
-                            </span>
-                            <?php echo $row2['type']; ?>/<?php echo $row2['product_category']; ?>
-                          </p>
-                          <p class="verified">
-                            <span class="material-icons align-middle">
-                              date_range
-                            </span>
-                            <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
-                          </p>
-                          <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                            <?php echo $row2['product_des']; ?></p>
-                          <div class="btn-prod">
-                            <button type="button" class="btn btn-primary">Edit</button>
-                            <button type="button" class="btn btn-danger">Delete</button>
+                      <div class="card-body">
+                        <div class="item d-inline-flex">
+                          <div class="image" style="max-height: 192px; ">
+                            <img style="height:190px; object-fit:scale-down;" src="images/<?php echo $pic['pic_name'] ?>" alt="prod img">
+                          </div>
+                          <div class="title">
+                            <h5><a href="view.php?view_prod=<?php echo $row2['product_id'] ?>"><?php echo $row2['product_title'] ?></a></h5>
+                            <p class="name">
+                              <span class="material-icons align-middle">
+                                segment
+                              </span>
+                              <?php echo $row2['type']; ?>/<?php echo $row2['product_category']; ?>
+                            </p>
+                            <p class="verified">
+                              <span class="material-icons align-middle">
+                                date_range
+                              </span>
+                              <?php echo date(" F j, Y - g:i a", strtotime($row2["product_date"])) ?>
+                            </p>
+                            <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                              <?php echo $row2['product_des']; ?></p>
+                            <div class="btn-prod">
+                              <button type="button" class="btn btn-primary">Edit</button>
+                              <button type="button" class="btn btn-danger">Delete</button>
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <hr>
-                  <?php } ?>
+                      <hr>
+                  <?php }
+                  } ?>
                 </div>
                 <div class="tab-pane" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                   <?php
@@ -189,7 +204,6 @@ if (!isset($_SESSION['User'])) {
                             <p><strong>Variation : </strong><?php echo $row2['var_product_title']; ?></p>
                             <p><strong>Quantity : </strong><?php echo $row2['var_product_quan']; ?></p>
                             <div style="display:flex">
-
                               <p><strong>Seller : </strong><a href="viewprofile.php?id=<?php echo $row2['var_seller']; ?>"><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
@@ -235,7 +249,7 @@ if (!isset($_SESSION['User'])) {
                             <p><strong>Variation : </strong><?php echo  $row2['var_product_title']; ?></p>
                             <p><strong>Quantity : </strong><?php echo $row2['var_product_quan']; ?></p>
                             <div style="display:flex">
-                            <p><strong>Seller : </strong><a href="viewprofile.php?id=<?php echo $row2['var_seller']; ?>"><?php echo $row2['var_seller']; ?></a></p>
+                              <p><strong>Seller : </strong><a href="viewprofile.php?id=<?php echo $row2['var_seller']; ?>"><?php echo $row2['var_seller']; ?></a></p>
                             </div>
                             <div class="btn-prod">
                               <?php
@@ -405,6 +419,7 @@ if (!isset($_SESSION['User'])) {
       document.getElementById("messages-tab").className += " active";
       document.getElementById("messages").className += " active";
     }
+
     function updateProfile() {
       Swal.fire(
         'Success !',
