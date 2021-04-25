@@ -12,6 +12,7 @@ if (isset($_POST['signup']) !== "") {
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
     $realaddress = $_POST['realaddress'];
+    $homeaddress = $_POST['homeaddress'];
 
     $errorEmpty = false;
     $errorEmail = false;
@@ -28,8 +29,10 @@ if (isset($_POST['signup']) !== "") {
     $errorEmptyGender = false;
     $errorEmptyRealaddress = false;
     $errorFullName = false;
-
-    if ($realaddress == 1) {
+    if($realaddress == 0) {
+        $realaddress = $homeaddress;
+    } 
+    else if ($realaddress == 1) {
         $realaddress = "Mahallah Ali Abi Talib";
     } else if ($realaddress == 2) {
         $realaddress = "Mahallah Al-Faruq";
@@ -59,9 +62,7 @@ if (isset($_POST['signup']) !== "") {
         $realaddress = "Mahallah Sumayyah";
     } else if ($realaddress == 15) {
         $realaddress = "Mahallah Salahuddin Al-Ayubi";
-    } else if ($realaddress == 16) {
-        $realaddress = $realaddress;
-    }
+    } 
 
     if ($usertype == 1) {
         $usertype = "Staff";
@@ -142,8 +143,8 @@ if (isset($_POST['signup']) !== "") {
         $errorEmptyGender = false;
     }
 
-    if (empty($realaddress)) {
-        echo "<span class='form-error'> Fill in your address ! </span> <br>";
+    if ((empty($realaddress)) || (empty($homeaddress))) {
+        echo "<span class='form-error'> Fill in your address ! </span> <br>" . $realaddress . $homeaddress ;
         $errorEmptyRealaddress = true;
     } else {
         $errorEmptyRealaddress = false;
@@ -198,7 +199,7 @@ if (isset($_POST['signup']) !== "") {
         //Insert New User Into DB
         if ($checkID == true && $checkEmail  == true && $checkUsername == true) {
             $hash = password_hash($password, PASSWORD_DEFAULT);
-            $query = "INSERT INTO user(matricid,password,username,full_name,gender,email,phone_num,user_type,address) VALUES ('$matricid','$hash','$username','$fullname','$gender','$email','$phonenumber','$usertype','$realaddress')";
+            $query = "INSERT INTO user(matricid,password,username,full_name,gender,email,phone_num,user_type,address,profile_pic,acc_status) VALUES ('$matricid','$hash','$username','$fullname','$gender','$email','$phonenumber','$usertype','$realaddress','profile.png','Unverified')";
             $sql = mysqli_query($sql_connect, $query);
 
             if ($sql) {

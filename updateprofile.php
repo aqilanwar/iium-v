@@ -123,12 +123,22 @@ if (!isset($_SESSION['User'])) {
                             </div>
                             <form method="post" action="inc/update.php" id="profiledetail">
                                 <div class="container">
-                                    <p class="verified align-middle" style="text-align:center; font-size:20px;">
-                                        Verified
-                                        <span class="material-icons align-middle" style="text-align:center; font-size:20px;">
-                                            verified_user
-                                        </span>
-                                    </p>
+                                    <?php if ($row['acc_status'] == 'Verified') {
+                                    ?>
+                                        <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                                            <span class="material-icons align-middle">
+                                                check_circle
+                                            </span>
+                                            Verified User
+                                        </p>
+                                    <?php } else { ?>
+                                        <p class="verified align-middle" style="text-align:center; font-size:20px;">
+                                            <span class="material-icons align-middle">
+                                                error
+                                            </span>
+                                            Unverified User
+                                        </p>
+                                    <?php } ?>
                                     <p><strong>Username</strong></p>
                                     <div class="input-group mb-3">
                                         <input type="text" class="form-control" name="username" placeholder="Username" value="<?php echo $row['username'] ?>" aria-label="Username" aria-describedby="basic-addon2" readonly>
@@ -164,7 +174,7 @@ if (!isset($_SESSION['User'])) {
                                         <input type="text" class="form-control" name="address" placeholder="Address" value="<?php echo $row['address'] ?>" aria-label="Address" aria-describedby="basic-addon2">
                                     </div>
                                     <div class="center-btn">
-                                        <button class="profile-update" id="btn-submit">Update Profile</button>
+                                        <button class="profile-update" id="btn-submit" style="font-weight:500">Update Profile</button>
                                     </div>
                                 </div>
                             </form>
@@ -313,7 +323,7 @@ if (!isset($_SESSION['User'])) {
                 }).then((result) => {
                     /* Read more about handling dismissals below */
                     if (result.dismiss === Swal.DismissReason.timer) {
-                        $("#profiledetail").submit() ; 
+                        $("#profiledetail").submit();
                     }
                 })
             } else if (result.isDenied) {

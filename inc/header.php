@@ -22,11 +22,17 @@
                   <li><a style="text-decoration: none;" href="profile.php">Profile</a></li>
                   <li><a style="text-decoration: none;" href="postads.php">Post new ads</a></li>
                   <li><a style="text-decoration: none;" href="inc/logout.php">Logout</a></li>
+                  <li class="dropdown"><a style="text-decoration: none;" href="#"><span>Setting</span> <i class="bi bi-chevron-right"></i></a>
+                  <ul>
+                    <li><a style="text-decoration: none;" href="updateprofile.php">Update Profile</a></li>
+                    <li><a style="text-decoration: none;" href="updatepassword.php">Change Password</a></li>
+                  </ul>
+                </li>
                 </ul>
+                
               </li>
               <li><a class="nav-account" style="text-decoration: none;" href="cart.php"><span class="material-icons">shopping_cart</span></a></li>
-              '
-              ;
+              ';
         } else if (isset($_SESSION['Admin'])){
           echo '        
           <li class="dropdown"><a style="text-decoration: none;" class="nav-account"> 

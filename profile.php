@@ -117,7 +117,7 @@ if (!isset($_SESSION['User'])) {
                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Active Ads</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pending Purchase (2)</a>
+                  <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Pending Purchase</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">Success Purchase</a>
@@ -162,9 +162,11 @@ if (!isset($_SESSION['User'])) {
                             </p>
                             <p style="width: 350px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                               <?php echo $row2['product_des']; ?></p>
-                            <div class="btn-prod">
-                              <button type="button" class="btn btn-primary">Edit</button>
-                              <button type="button" class="btn btn-danger">Delete</button>
+                            <div class="btn-prod" style="display:flex">
+                              <form action="updateads.php" method="POST">
+                                <button name="id" value="<?php echo $row2['product_id'] ?>" class="btn btn-primary">Edit</button>
+                              </form>
+                              <button class="btn btn-danger" value="<?php echo $row2['product_id'] ?>" id="btn-del">Delete Ads</button>
                             </div>
                           </div>
                         </div>
@@ -267,8 +269,6 @@ if (!isset($_SESSION['User'])) {
 
                               <?php }
                               ?>
-
-
                             </div>
                           </div>
                         </div>
@@ -280,10 +280,10 @@ if (!isset($_SESSION['User'])) {
                 <div class="tab-pane" id="settings" role="tabpanel" aria-labelledby="settings-tab">
                   <tbody>
                     <?php
-                    $query2 = "SELECT * FROM var_receipt WHERE var_seller ='$usernameSESSION' ORDER BY var_receipt_id DESC";
+                    $query2 = "SELECT * FROM var_receipt WHERE var_seller ='$usernameSESSION' AND notifcation = 'Pending' ";
                     $result2 = mysqli_query($sql_connect, $query2);
                     if (mysqli_num_rows($result2) == 0) {
-                      echo '<p>You notifcation is empty .</p>';
+                      echo '<p>You have 0 pending order .</p>';
                     } else {
                       while ($row2 = mysqli_fetch_assoc($result2)) {
 
@@ -301,18 +301,54 @@ if (!isset($_SESSION['User'])) {
                     ?>
                         <table class="table table-light">
                           <tr>
+
                             <td width="20%"> <img src="images/<?php echo $pic['pic_name'] ?>" width="50" height="50"> </td>
-                            <td width="30%" style="text-align:left" class="align-middle">You just received a new order from <a href=""><?php echo $row2['username']  ?></a><br><span style="font-size:12px"><?php echo date(" F j, Y - g:i a", strtotime($date["receipt_date"])) ?></span>
+                            <td width="30%" style="text-align:left" class="align-middle">You just received a new order from <a href="viewprofile.php?id=<?php echo $row2['username'] ?>"><?php echo $row2['username']  ?></a><br><span style="font-size:12px"><?php echo date(" F j, Y - g:i a", strtotime($date["receipt_date"])) ?></span>
                               <hr><span style="font-size:14px"><strong>Product : </strong> <br><?php echo $row2['product_title']; ?></span><br><span style="font-size:14px"><strong>Variation : </strong> <br> <?php echo $row2['var_product_title']; ?></span><br><span style="font-size:14px"><strong>Quantity : </strong> <br> <?php echo $row2['var_product_quan']; ?></span>
                               <hr>
                             </td>
                             <td width="50%" style="text-align:right">
                               <button class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Buyer </button>
-                              <button class="btn btn-primary">Accept </button>
+                              <button class="btn btn-primary" id="btn-send" value="<?php echo $row2['var_receipt_id'] ?>">Success </button>
                             </td>
                           </tr>
                       <?php }
                     } ?>
+                      <hr>
+                      <?php
+                      $query2 = "SELECT * FROM var_receipt WHERE var_seller ='$usernameSESSION' AND notifcation = 'Success' ";
+                      $result2 = mysqli_query($sql_connect, $query2);
+                      if (mysqli_num_rows($result2) == 0) {
+                        echo '<p>You have 0 success order .</p>';
+                      } else {
+                        while ($row2 = mysqli_fetch_assoc($result2)) {
+
+                          $querypic = "SELECT pic_name FROM pic_product WHERE product_id = '" . $row2['product_id'] . "'";
+                          $resultpic = mysqli_query($sql_connect, $querypic);
+                          $pic = mysqli_fetch_assoc($resultpic);
+
+                          $query3 = "SELECT receipt_date FROM receipt WHERE receipt_id = '" . $row2['receipt_id'] . "'";
+                          $result3 = mysqli_query($sql_connect, $query3);
+                          $date = mysqli_fetch_assoc($result3);
+
+                          $queryphone = "SELECT phone_num FROM user WHERE username = '" . $row2['username'] . "'";
+                          $resultphone = mysqli_query($sql_connect, $queryphone);
+                          $phonenum = mysqli_fetch_assoc($resultphone);
+                      ?>
+                          <table class="table table-light">
+                            <tr>
+
+                              <td width="20%"> <img src="images/<?php echo $pic['pic_name'] ?>" width="50" height="50"> </td>
+                              <td width="30%" style="text-align:left" class="align-middle">You just received a new order from <a href="viewprofile.php?id=<?php echo $row2['username'] ?>"><?php echo $row2['username']  ?></a><br><span style="font-size:12px"><?php echo date(" F j, Y - g:i a", strtotime($date["receipt_date"])) ?></span>
+                                <hr><span style="font-size:14px"><strong>Product : </strong> <br><?php echo $row2['product_title']; ?></span><br><span style="font-size:14px"><strong>Variation : </strong> <br> <?php echo $row2['var_product_title']; ?></span><br><span style="font-size:14px"><strong>Quantity : </strong> <br> <?php echo $row2['var_product_quan']; ?></span>
+                                <hr>
+                              </td>
+                              <td width="50%" style="text-align:right">
+                                <button class="btn btn-success" target="_blank" onclick="window.open('https://api.whatsapp.com/send?phone=<?php echo $phonenum['phone_num'] ?>');"><i class="fa fa-whatsapp" style="font-size:20px"></i> Contact Buyer </button>
+                              </td>
+                            </tr>
+                        <?php }
+                      } ?>
                   </tbody>
                   </table>
                 </div>
@@ -394,6 +430,92 @@ if (!isset($_SESSION['User'])) {
       })
     });
 
+    $(document).on('click', '#btn-send', function(e) {
+      e.preventDefault();
+      var value = $(this).attr('value');
+      Swal.fire({
+        title: 'Are you sure that you have complete the order ?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Yes`,
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Saving changes!',
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                  const b = content.querySelector('b')
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft()
+                  }
+                }
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              window.location.assign("inc/send.php?id=" + value);
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    });
+
+    $(document).on('click', '#btn-del', function(e) {
+      e.preventDefault();
+      var value = $(this).attr('value');
+      Swal.fire({
+        title: 'Are you sure that you want to delete this ads ?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Yes`,
+        denyButtonText: `No`,
+      }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: 'Saving changes!',
+            timer: 1000,
+            timerProgressBar: true,
+            didOpen: () => {
+              Swal.showLoading()
+              timerInterval = setInterval(() => {
+                const content = Swal.getContent()
+                if (content) {
+                  const b = content.querySelector('b')
+                  if (b) {
+                    b.textContent = Swal.getTimerLeft()
+                  }
+                }
+              }, 100)
+            },
+            willClose: () => {
+              clearInterval(timerInterval)
+            }
+          }).then((result) => {
+            /* Read more about handling dismissals below */
+            if (result.dismiss === Swal.DismissReason.timer) {
+              window.location.assign("inc/delete.php?id=" + value);
+            }
+          })
+        } else if (result.isDenied) {
+          Swal.fire('Changes are not saved', '', 'info')
+        }
+      })
+    });
+
     function notification() {
       Swal.fire(
         'Thank you for shopping with us !',
@@ -423,9 +545,38 @@ if (!isset($_SESSION['User'])) {
     function updateProfile() {
       Swal.fire(
         'Success !',
-        'You have successfully updated your profile detail',
+        'You have successfully updated your profile detail !',
         'success'
       );
+    }
+
+    function updateAds() {
+      Swal.fire(
+        'Success !',
+        'You have successfully updated your ads !',
+        'success'
+      );
+    }
+
+    function deleteAds() {
+      Swal.fire(
+        'Success !',
+        'You have successfully deleted your ads !',
+        'success'
+      );
+    }
+
+    function send() {
+      Swal.fire(
+        'Success !',
+        'You have successfully complete the order !',
+        'success'
+      );
+      document.getElementById("home-tab").className = "nav-link";
+      document.getElementById("home").className = "tab-pane";
+
+      document.getElementById("settings-tab").className += " active";
+      document.getElementById("settings").className += " active";
     }
   </script>
   <?php
@@ -440,6 +591,18 @@ if (!isset($_SESSION['User'])) {
   if (isset($_SESSION['updateprofile'])) {
     echo '<script type="text/javascript">updateProfile();</script>';
     unset($_SESSION['updateprofile']);
+  }
+  if (isset($_SESSION['updateads'])) {
+    echo '<script type="text/javascript">updateAds();</script>';
+    unset($_SESSION['updateads']);
+  }
+  if (isset($_SESSION['deleteads'])) {
+    echo '<script type="text/javascript">deleteAds();</script>';
+    unset($_SESSION['deleteads']);
+  }
+  if (isset($_SESSION['send'])) {
+    echo '<script type="text/javascript">send();</script>';
+    unset($_SESSION['send']);
   }
   ?>
 </body>

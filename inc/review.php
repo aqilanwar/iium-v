@@ -20,7 +20,7 @@ $query = "INSERT INTO review(review_username,review_content,product_id,receipt_i
 $sql2 = mysqli_query($sql_connect, $query);
 
 if($sql2){
-    $updatereviewstatus = "UPDATE var_receipt SET review_status = 'YES' WHERE var_receipt_id = '$receiptid' " ;
+    $updatereviewstatus = "UPDATE var_receipt SET review_status = 'YES'  WHERE var_receipt_id = '$receiptid' " ;
     $updatereviewstatuscall = mysqli_query($sql_connect, $updatereviewstatus);
 }
 

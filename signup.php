@@ -79,7 +79,7 @@
                 <div class="form-group" id="address">
                 <p class="input-title" >Mahallah</p>
                   <select class="form-select" name="realaddress" aria-label="realaddress"  id="realaddress">
-                    <option value="0">Select Mahallah</option>
+                    <option value="0">NON-RESIDENT</option>
                     <option value="1">Mahallah Ali Abi Talib</option>
                     <option value="2">Mahallah Al-Faruq</option>
                     <option value="3">Mahallah As-Siddiq</option>
@@ -95,14 +95,13 @@
                     <option value="13">Mahallah Nusaibah</option>
                     <option value="14">Mahallah Sumayyah</option>
                     <option value="15">Mahallah Salahuddin Al-Ayubi</option>
-                    <option value="16">NON-RESIDENT</option>
                   </select>
                 </div>                  
                 
                  <!-- Full Address -->
                  <div class="form-group" id="address-all" >
                   <p class="input-title" >Address</p>
-                  <input type="text"  name="realaddress" id="realaddress" class="form-control" placeholder="Address" >
+                  <input type="text"  name="homeaddress" id="homeaddress" class="form-control" placeholder="Address" >
                  </div>
 
                 <!-- UserName -->               
@@ -184,11 +183,14 @@
           $("#address").change(function(){
           var selectedAddress = $(this).children().children("option:selected").val();
           console.log(selectedAddress);
-            if(selectedAddress == 16){
+            if(selectedAddress == 0){
               $("#address-all").show();
+              var homeaddress = $("#homeaddress").val('');
+
             }else{
               $("#address-all").hide();
-              $("#address-all").val() = '';
+              var homeaddress = $("#homeaddress").val("None");
+              
             }
           });
 
@@ -196,17 +198,16 @@
           var selectedUser = $(this).children("option:selected").val();
             if(selectedUser == 1){
               $("#id-title").text("Staff ID");
-
               $("#realaddress").show();
               $("#address").hide();
 
             }else if(selectedUser == 2){
               $("#id-title").text("Student ID");
               $("#address").show();
+
             }
           });
           $("form").submit(function(event) {
-            var fulladdress =  $("#realaddress").val();
             event.preventDefault();
             var usertype = $("#usertype").val();
             var gender = $("#gender").val();
@@ -217,6 +218,7 @@
             var phonenumber = $("#phonenumber").val();
             var password = $("#password").val();
             var realaddress = $("#realaddress").val();
+            var homeaddress = $("#homeaddress").val();
             var confirmpassword = $("#confirmpassword").val();
             
             $(".form-message").load("inc/signup.php", {
@@ -228,6 +230,7 @@
               matricid: matricid,
               phonenumber: phonenumber,
               realaddress: realaddress,
+              homeaddress: homeaddress,
               password: password,
               confirmpassword: confirmpassword
             });
